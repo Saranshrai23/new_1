@@ -25,6 +25,8 @@ This assignment demonstrates **basic Linux commands** for creating, modifying, a
 
 ### 1. Working Directory and Creating Directories
 
+
+
 ```bash
 pwd
 mkdir -p linux/Assignment-01
@@ -36,6 +38,8 @@ rmdir /tmp/dir1/dir3
 * `pwd` – Print working directory
 * `mkdir -p` – Create directories recursively
 * `rmdir` – Remove empty directory
+
+![alt text](screenshot/2image.png)
 
 ---
 
@@ -52,6 +56,8 @@ echo 'Sharma is my last name' > /tmp/Sharma
 * `touch` – Create empty file
 * `>` – Write to a file (overwrite)
 * `>>` – Append content to a file
+
+![alt text](screenshot/1image.png)
 
 ---
 
@@ -83,6 +89,8 @@ EOF
 
 * `<<'EOF'` – Here-document for multi-line input
 
+![alt text](image.png)
+
 ---
 
 ### 5. Displaying File Content
@@ -97,6 +105,8 @@ head -n 8 /tmp/Sharma | tail -n 6  # Lines 3-8
 * `head` – Show first `n` lines
 * `tail` – Show last `n` lines
 * Combine `head` and `tail` for line ranges
+
+![alt text](image.png)
 
 ---
 
@@ -127,6 +137,7 @@ mv /tmp/Sharma /tmp/dir1/
 * `mv` – Move or rename file
 
 ---
+![alt text](image-1.png)
 
 ### 8. Clearing and Deleting Files
 
@@ -137,23 +148,6 @@ rm /tmp/dir2/Sharma.copy  # Delete file
 
 * `>` – Empty a file
 * `rm` – Remove file
-
----
-
-## Screenshots
-
-```markdown
-## Screenshots
-
-### Listing Directories and Files
-![Directories](screenshots/list_dirs.png)
-
-### File Content Display
-![File Content](screenshots/file_content.png)
-
-### Copying and Moving Files
-![Copy Move](screenshots/copy_move.png)
-```
 
 ---
 

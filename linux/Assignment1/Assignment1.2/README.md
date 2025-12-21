@@ -44,7 +44,7 @@ You can create, delete, list, move, copy files/directories, and also **read or m
 ## Script Usage
 
 ```bash
-./script.sh <action> <path> <name> [arg4] [arg5]
+./FileManager.sh <action> <path> <name> [arg4] [arg5]
 ```
 
 ### Arguments Explanation
@@ -66,31 +66,31 @@ You can create, delete, list, move, copy files/directories, and also **read or m
 #### Create Directory
 
 ```bash
-./script.sh addDir /home/ubuntu testDir
+./FileManager.sh addDir /home/ubuntu testDir
 ```
 
 #### Delete Directory
 
 ```bash
-./script.sh deleteDir /home/ubuntu testDir
+./FileManager.sh deleteDir /home/ubuntu testDir
 ```
 
 #### List Files
 
 ```bash
-./script.sh listFiles /home/ubuntu
+./FileManager.sh listFiles /home/ubuntu
 ```
 
 #### List Directories
 
 ```bash
-./script.sh listDirs /home/ubuntu
+./FileManager.sh listDirs /home/ubuntu
 ```
 
 #### List All
 
 ```bash
-./script.sh listAll /home/ubuntu
+./FileManager.sh listAll /home/ubuntu
 ```
 
 ---
@@ -100,25 +100,25 @@ You can create, delete, list, move, copy files/directories, and also **read or m
 #### Create File (Empty)
 
 ```bash
-./script.sh addFile /home/ubuntu test.txt
+./FileManager.sh addFile /home/ubuntu test.txt
 ```
 
 #### Create File With Content
 
 ```bash
-./script.sh addFile /home/ubuntu test.txt "Hello World"
+./FileManager.sh addFile /home/ubuntu test.txt "Hello World"
 ```
 
 #### Append Content to File
 
 ```bash
-./script.sh addContentToFile /home/ubuntu test.txt "New Line"
+./FileManager.sh addContentToFile /home/ubuntu test.txt "New Line"
 ```
 
 #### Add Content at Beginning
 
 ```bash
-./script.sh addContentToFileBegining /home/ubuntu test.txt "First Line"
+./FileManager.sh addContentToFileBegining /home/ubuntu test.txt "First Line"
 ```
 
 ---
@@ -128,26 +128,27 @@ You can create, delete, list, move, copy files/directories, and also **read or m
 #### Show First N Lines
 
 ```bash
-./script.sh showFileBeginingContent /home/ubuntu test.txt 5
+./FileManager.sh showFileBeginingContent /home/ubuntu test.txt 5
 ```
 
 #### Show Last N Lines
 
 ```bash
-./script.sh showFileEndContent /home/ubuntu test.txt 5
+./FileManager.sh showFileEndContent /home/ubuntu test.txt 5
 ```
 
 #### Show Specific Line
 
 ```bash
-./script.sh showFileContentAtLine /home/ubuntu test.txt 10
+./FileManager.sh showFileContentAtLine /home/ubuntu test.txt 10
 ```
 
 #### Show Line Range
 
 ```bash
-./script.sh showFileContentForLineRange /home/ubuntu test.txt 5 10
+./FileManager.sh showFileContentForLineRange /home/ubuntu test.txt 5 10
 ```
+![alt text](image.png)
 
 ---
 
@@ -156,13 +157,13 @@ You can create, delete, list, move, copy files/directories, and also **read or m
 #### Move File
 
 ```bash
-./script.sh moveFile /home/ubuntu test.txt /tmp/test.txt
+./FileManager.sh moveFile /home/ubuntu test.txt /tmp/test.txt
 ```
 
 #### Copy File
 
 ```bash
-./script.sh copyFile /home/ubuntu test.txt /tmp/test.txt
+./FileManager.sh copyFile /home/ubuntu test.txt /tmp/test.txt
 ```
 
 ---
@@ -172,29 +173,15 @@ You can create, delete, list, move, copy files/directories, and also **read or m
 #### Clear File Content
 
 ```bash
-./script.sh clearFileContent /home/ubuntu test.txt
+./FileManager.sh clearFileContent /home/ubuntu test.txt
 ```
 
 #### Delete File
 
 ```bash
-./script.sh deleteFile /home/ubuntu test.txt
+./FileManager.sh deleteFile /home/ubuntu test.txt
 ```
-
----
-
-
-###  Reference screenshots in README.md
-
-```markdown
-## 📸 Screenshots
-
-### Add File Example
-![Add File](screenshots/add-file.png)
-
-### List Files Example
-![List Files](screenshots/list-files.png)
-```
+![alt text](screenshot/2image.png)
 
 ---
 
@@ -203,7 +190,7 @@ You can create, delete, list, move, copy files/directories, and also **read or m
 * Ensure the script has execute permission:
 
 ```bash
-chmod +x script.sh
+chmod +x FileManager.sh
 ```
 
 * Paths must exist before performing file operations.
