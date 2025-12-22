@@ -109,23 +109,20 @@ It uses **simple loops and functions** to print spaces and stars.
 
 (continues for all patterns…)
 
----
 
 ##  Screenshots (Star Patterns)
 
 Add screenshots in a folder named `screenshots`.
 
-```markdown
-## 📸 Screenshots – Star Patterns
+## Screenshots – Star Patterns
 
 ### All Patterns
-![All Patterns](screenshots/star-all.png)
+
+![alt text](screenshot/1image.png)
 
 ### Pyramid Pattern (t3)
-![Pattern t3](screenshots/star-t3.png)
-```
 
----
+![alt text](screenshot/2image.png)
 
 #  Part B – `printTomcat.sh`
 
@@ -164,15 +161,10 @@ If the number does not match any condition, **no output** is printed.
 
 ---
 
-##  Screenshots (Tomcat Script)
-
-```markdown
 ##  Screenshots – Tomcat Script
 
-![Tomcat Output](screenshots/tomcat.png)
-```
+![alt text](screenshot/tomimage.png)
 
----
 
 ## Notes
 

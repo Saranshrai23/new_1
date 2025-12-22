@@ -130,6 +130,20 @@ esac
 
 ---
 
+## Screenshots
+
+### Part A – Process Manager
+
+![alt text](screenshot/1otimage.png)
+
+-----
+
+![alt text](screenshot/2otimage.png)
+
+-----
+![alt text](screenshot/30timage.png)
+
+
 #  Part B – `ProcessManager.sh`
 
 ### Description
@@ -246,17 +260,17 @@ esac
 
 # Screenshots
 
-```markdown
 ## Screenshots
 
-### Part A – Process Manager
-![Process Manager](screenshots/process_manager.png)
-
 ### Part B – Service Manager
-![Service Manager](screenshots/service_manager.png)
-```
 
----
+![alt text](screenshot/1pmimage.png)
+
+------
+
+![alt text](screenshot/2pmimage.png)
+
+------
 
 # Notes
 

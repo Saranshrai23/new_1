@@ -94,20 +94,6 @@ echo "$content"
 chmod +x otTextEditor.sh
 ```
 
-### Example Commands
-
-```bash
-./otTextEditor.sh addLineTop testfiles/example.txt "This is the first line"
-./otTextEditor.sh addLineBottom testfiles/example.txt "This is the last line"
-./otTextEditor.sh addLineAt testfiles/example.txt 2 "This is the second line"
-./otTextEditor.sh updateFirstWord testfiles/example.txt oldWord newWord
-./otTextEditor.sh updateAllWords testfiles/example.txt oldWord newWord
-./otTextEditor.sh insertWord testfiles/example.txt word1 word2 "insertedWord"
-./otTextEditor.sh deleteLine testfiles/example.txt 2
-./otTextEditor.sh deleteLineWithWord testfiles/example.txt "removeThisWord"
-```
-
----
 
 ### Script: `otTextEditor.sh`
 
@@ -159,21 +145,16 @@ esac
 
 ---
 
-#  Screenshots
 
-You can create a `screenshots/` folder and save images of the scripts running:
-
-```markdown
 ## Screenshots
 
-### Template Engine Output
-![Template Engine Output](screenshots/template_output.png)
-
 ### Text Editor Output
-![Text Editor Output](screenshots/texteditor_output.png)
-```
+
+![alt text](screenshot/1image.png)
 
 ---
+
+![alt text](image.png)
 
 # Notes
 

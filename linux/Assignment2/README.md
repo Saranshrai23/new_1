@@ -207,18 +207,16 @@ screenshots/
 
 ### 3️ Add screenshots to README.md
 
-```markdown
 ## Screenshots
 
-### Add Team
-![Add Team](screenshots/add-team.png)
+### Add Team, Add User
+![Linux_33/linux/Assignment2/screenshot/1image.png](screenshot/1image.png)
+### List User
+![alt text](screenshot/2image.png)
 
-### Add User
-![Add User](screenshots/add-user.png)
+### List Team
+![alt text](screenshot/3image.png)
 
-### List Users
-![List Users](screenshots/list-users.png)
-```
 
 
 

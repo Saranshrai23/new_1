@@ -148,7 +148,7 @@ You can create, delete, list, move, copy files/directories, and also **read or m
 ```bash
 ./FileManager.sh showFileContentForLineRange /home/ubuntu test.txt 5 10
 ```
-![alt text](image.png)
+![alt text](screenshot/1image.png)
 
 ---
 
