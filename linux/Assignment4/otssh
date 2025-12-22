@@ -1,0 +1,138 @@
+
+#!/bin/bash
+
+DB_FILE="$HOME/.ssh/.otssh_db"
+
+# Ensure DB file exists
+touch "$DB_FILE"
+
+add_connection() {
+    local name="$1" host="$2" user="$3" port="$4" identity="$5"
+
+    if grep -q "^$name:" "$DB_FILE"; then
+    echo "[ERROR]: $name connection already exists"
+    return
+    fi
+
+
+    # Default port = 22
+    [ -z "$port" ] && port=22
+    # Remove existing entry if any
+   # grep -v "^$name:" "$DB_FILE" > "$DB_FILE.tmp" && mv "$DB_FILE.tmp" "$DB_FILE"
+    echo "$name:$host:$user:$port:$identity" >> "$DB_FILE"
+    echo "Added connection $name"
+
+}
+
+list_connections() {
+    local detail="$1"
+    if [ ! -s "$DB_FILE" ]; then
+        echo "No connections found."
+        return
+    fi
+    while IFS=":" read -r name host user port identity; do
+        if [ "$detail" = "true" ]; then
+            cmd="ssh "
+            [ -n "$identity" ] && cmd+=" -i $identity"
+            [ "$port" != "22" ] && cmd+=" -p $port"
+            cmd+=" $user@$host"
+            echo "$name: $cmd"
+        else
+            echo "$name"
+        fi
+    done < "$DB_FILE"
+}
+
+update_connection() {
+    local name="$1" host="$2" user="$3" port="$4" identity="$5"
+    if ! grep -q "^$name:" "$DB_FILE"; then
+        echo "[ERROR]: $name not found."
+        return
+    fi
+    # Read old values
+    old=$(grep "^$name:" "$DB_FILE")
+    IFS=":" read -r _oldname oldhost olduser oldport oldidentity <<< "$old"
+    [ -z "$host" ] && host="$oldhost"
+    [ -z "$user" ] && user="$olduser"
+    [ -z "$port" ] && port="$oldport"
+    [ -z "$identity" ] && identity="$oldidentity"
+    grep -v "^$name:" "$DB_FILE" > "$DB_FILE.tmp" && mv "$DB_FILE.tmp" "$DB_FILE"
+    echo "$name:$host:$user:$port:$identity" >> "$DB_FILE"
+    echo "Updated connection $name"
+}
+
+delete_connection() {
+    local name="$1"
+    if grep -q "^$name:" "$DB_FILE"; then
+        grep -v "^$name:" "$DB_FILE" > "$DB_FILE.tmp" && mv "$DB_FILE.tmp" "$DB_FILE"
+        echo "Deleted connection $name"
+    else
+        echo "[ERROR]: $name not found."
+    fi
+}
+
+connect_server() {
+    local name="$1"
+    if ! grep -q "^$name:" "$DB_FILE"; then
+        echo "[ERROR]: Server information is not available, please add server first"
+        return
+    fi
+    entry=$(grep "^$name:" "$DB_FILE")
+    IFS=":" read -r _name host user port identity <<< "$entry"
+    cmd="ssh "
+    [ -n "$identity" ] && cmd+=" -i $identity"
+    [ "$port" != "22" ] && cmd+=" -p $port"
+    cmd+=" $user@$host"
+    echo "Connecting to $name on $port port as $user via ${identity:-default} key"
+    exec $cmd
+}
+
+# ---------------- CLI Parsing ----------------
+case "$1" in
+    -a)
+        shift
+        while getopts "n:h:u:p:i:" opt; do
+            case $opt in
+                n) name=$OPTARG ;;
+                h) host=$OPTARG ;;
+                u) user=$OPTARG ;;
+                p) port=$OPTARG ;;
+                i) identity=$OPTARG ;;
+            esac
+        done
+        add_connection "$name" "$host" "$user" "$port" "$identity"
+        ;;
+    -u)
+        shift
+        while getopts "n:h:u:p:i:" opt; do
+            case $opt in
+                n) name=$OPTARG ;;
+                h) host=$OPTARG ;;
+                u) user=$OPTARG ;;
+                p) port=$OPTARG ;;
+                i) identity=$OPTARG ;;
+            esac
+        done
+        update_connection "$name" "$host" "$user" "$port" "$identity"
+        ;;
+    ls)
+        if [ "$2" = "-d" ]; then
+            list_connections true
+        else
+            list_connections false
+        fi
+        ;;
+    rm)
+        delete_connection "$2"
+        ;;
+    *)
+        if [ -n "$1" ]; then
+            connect_server "$1"
+        else
+            echo "Usage: otssh [-a|-u] -n name -h host -u user [-p port] [-i identity]"
+            echo "       otssh ls [-d]"
+            echo "       otssh rm name"
+            echo "       otssh name"
+        fi
+        ;;
+esac
