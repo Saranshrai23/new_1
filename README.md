@@ -3,7 +3,7 @@
   <br/>
 </p>
 
-<h1 align="center">Common Stack | Others | Git Flow | SOP for Git Flow</h1>
+<h1 align="center">Commit Hooks Recommendation</h1>
 
 <p align="center">
   Step by step workflow guide
@@ -13,21 +13,27 @@
 
 ## Author Table
 
-| Author    | Created on | Version | Last updated by | Last Edited On | L0 Reviewer | L1 Reviewer | L2 Reviewer |
-| --------- | ---------- | ------- | --------------- | -------------- | ----------- | ----------- | ----------- |
-| Your Name | 24-04-2026 | 1.0     | Your Name       | 24-04-2026     | -           | -           | -           |
+| **Author**  | **Created on** | **Version** | **Last updated by** | **Last edited on** | **L0 Reviewer** | **L1 Reviewer** | **L2 Reviewer** |
+| ----------- | -------------- | ----------- | ------------------- | ------------------ | --------------- | --------------- | --------------- |
+| Saransh Rai | 25-04-2026     | v1.0        | Saransh Rai         | 25-04-2026         | Anuj Jain       | Prashant Sharma | Piyush Upadhyay |
 
 ---
 
 ## Table of Contents
 
 1. [Introduction](#1-introduction)
-2. [What is Git Flow](#2-what-is-git-flow)
-3. [Why Git Flow](#3-why-git-flow)
-4. [Workflow](#4-workflow)
-5. [Workflow Diagram](#5-workflow-diagram)
-6. [Advantages](#6-advantages)
-7. [Disadvantages](#7-disadvantages)
+2. [Purpose of Commit Hooks](#2-purpose-of-commit-hooks)
+3. [Types of Git Hooks](#3-types-of-git-hooks)
+4. [Recommended Hooks](#4-recommended-hooks)
+
+   * 4.1 [Linting](#41-linting)
+   * 4.2 [Formatting](#42-formatting)
+   * 4.3 [Tests](#43-tests)
+   * 4.4 [Security & Secrets](#44-security--secrets)
+   * 4.5 [Commit Messages](#45-commit-messages)
+5. [Tools for Managing Hooks](#5-tools-for-managing-hooks)
+6. [Advantages and Disadvantages](#6-advantages-and-disadvantages)
+7. [Best Practices](#7-best-practices)
 8. [Conclusion](#8-conclusion)
 9. [Contact Information](#9-contact-information)
 10. [References](#10-references)
@@ -36,153 +42,186 @@
 
 ## 1. Introduction
 
-Git Flow is a branching strategy used with Git to manage code in a structured way.
+Commit hooks, also known as Git hooks, are scripts that run automatically at specific points in the Git workflow. For example, a hook can run before a commit is created, before code is pushed, or after a merge is completed.
 
-It helps teams organize development, releases, and production fixes using separate branches.
+These hooks help teams catch issues early by checking code quality, formatting, test cases, secrets, and commit message standards before the code reaches the remote repository.
 
----
-
-## 2. What is Git Flow
-
-Git Flow is a workflow model that defines how branches should be created, used, and merged.
-
-It mainly uses:
-
-* `main` / `master` for production-ready code
-* `develop` for active development
-* `feature/*` for new features
-* `release/*` for release preparation
-* `hotfix/*` for urgent production fixes
+This document provides structured recommendations for implementing commit hooks for linting, formatting, testing, security scanning, and commit message validation.
 
 ---
 
-## 3. Why Git Flow
+## 2. Purpose of Commit Hooks
 
-Git Flow is used to keep development and production code separate.
+The main purpose of commit hooks is to automate important checks in the development workflow.
 
-It helps teams manage releases safely and fix production issues quickly.
-
-### Key Reasons
-
-* Clear branch structure
-* Stable production code
-* Easy release management
-* Better team collaboration
-* Quick hotfix handling
+| **Purpose**                  | **Explanation**                                                                             |
+| ---------------------------- | ------------------------------------------------------------------------------------------- |
+| Catch issues early           | Hooks help detect linting, formatting, or test failures before code is committed or pushed. |
+| Enforce standards            | Teams can maintain consistent coding style and commit message format.                       |
+| Prevent sensitive data leaks | Hooks can block commits that contain secrets, passwords, tokens, or credentials.            |
+| Maintain branch stability    | Pre-push hooks can run tests before code reaches the remote branch.                         |
+| Automate team rules          | Team policies can be converted into automated checks.                                       |
 
 ---
 
-## 4. Workflow
+## 3. Types of Git Hooks
 
-### Main Branches
+| **Git Hook** | **When It Runs**                                             | **Common Use Case**                     |
+| ------------ | ------------------------------------------------------------ | --------------------------------------- |
+| pre-commit   | Before a commit is created                                   | Linting, formatting, secret scanning    |
+| commit-msg   | After entering commit message but before commit is finalized | Commit message validation               |
+| pre-push     | Before pushing code to remote repository                     | Running unit tests or integration tests |
+| post-commit  | After a commit is created                                    | Notifications or local automation       |
+| post-merge   | After merging branches                                       | Dependency updates or cleanup tasks     |
 
-| Branch            | Purpose                 |
-| ----------------- | ----------------------- |
-| `main` / `master` | Production-ready code   |
-| `develop`         | Latest development code |
-
-### Supporting Branches
-
-| Branch Type | Created From | Merged Into       | Purpose             |
-| ----------- | ------------ | ----------------- | ------------------- |
-| `feature/*` | `develop`    | `develop`         | New feature work    |
-| `release/*` | `develop`    | `main`, `develop` | Release preparation |
-| `hotfix/*`  | `main`       | `main`, `develop` | Production bug fix  |
-
-### Basic Commands Example
-
-Create a feature branch:
-
-```bash
-git checkout develop
-git checkout -b feature/login-page
-```
-
-Merge feature into develop:
-
-```bash
-git checkout develop
-git merge feature/login-page
-```
-
-Create a release branch:
-
-```bash
-git checkout develop
-git checkout -b release/v1.0.0
-```
-
-Create a hotfix branch:
-
-```bash
-git checkout main
-git checkout -b hotfix/fix-login-bug
-```
+**Recommendation:** Start with `pre-commit` for linting, formatting, and secret scanning. Then add `commit-msg` for commit message rules. Use `pre-push` for tests if required.
 
 ---
 
-## 5. Workflow Diagram
+## 4. Recommended Hooks
 
-```text
-feature/*  ───────► develop ───────► release/* ───────► main
-                                  │                    │
-                                  └──── merge back ◄────┘
+### 4.1 Linting
 
-hotfix/*   ◄────── main ───────► main + develop
-```
+Linting checks code for syntax errors, style issues, and possible bugs.
 
-### Simple Flow
-
-```text
-Feature → Develop → Release → Main
-Bug in Main → Hotfix → Main + Develop
-```
+| **Recommendation**            | **Explanation**                                                                |
+| ----------------------------- | ------------------------------------------------------------------------------ |
+| Use language-specific linters | Examples include ESLint for JavaScript, Ruff for Python, and RuboCop for Ruby. |
+| Fail on major errors          | The commit should fail if serious linting issues are found.                    |
+| Share linting config in repo  | This ensures every developer follows the same rules.                           |
 
 ---
 
-## 6. Advantages
+### 4.2 Formatting
 
-| Advantage            | Description                                   |
-| -------------------- | --------------------------------------------- |
-| Structured workflow  | Clear branching model                         |
-| Stable production    | `main` contains stable code                   |
-| Parallel development | Multiple features can be developed together   |
-| Easy releases        | Release branches help testing and preparation |
-| Hotfix support       | Production bugs can be fixed quickly          |
+Formatting hooks help maintain consistent code style automatically.
+
+| **Recommendation**       | **Explanation**                                                         |
+| ------------------------ | ----------------------------------------------------------------------- |
+| Use formatters           | Examples include Prettier, Black, and gofmt.                            |
+| Auto-format staged files | The hook can format only the files being committed.                     |
+| Re-stage formatted files | After formatting, the updated files should be added back to the commit. |
+| Enforce formatting in CI | CI should also check formatting so hooks are not the only control.      |
 
 ---
 
-## 7. Disadvantages
+### 4.3 Tests
 
-| Disadvantage          | Description                         |
-| --------------------- | ----------------------------------- |
-| Complex for beginners | More branches to understand         |
-| Extra overhead        | May be too much for small projects  |
-| Merge conflicts       | Long branches can cause conflicts   |
-| Slower for CI/CD      | Not ideal for very fast deployments |
+Testing hooks help verify that code changes do not break existing functionality.
+
+| **Recommendation**           | **Explanation**                                                     |
+| ---------------------------- | ------------------------------------------------------------------- |
+| Run fast tests before commit | Small unit tests can run during pre-commit.                         |
+| Run full tests before push   | Larger test suites are better suited for pre-push.                  |
+| Run affected tests only      | This improves speed by running tests related to changed files only. |
+
+---
+
+### 4.4 Security & Secrets
+
+Security hooks help prevent accidental leakage of sensitive information.
+
+| **Recommendation**            | **Explanation**                                                     |
+| ----------------------------- | ------------------------------------------------------------------- |
+| Use secret scanning tools     | Examples include detect-secrets, gitleaks, and truffleHog.          |
+| Block high-confidence matches | Commits should fail if real secrets are detected.                   |
+| Maintain allowlists           | Safe patterns can be added to allowlists to reduce false positives. |
+
+---
+
+### 4.5 Commit Messages
+
+Commit message hooks help maintain clean and meaningful commit history.
+
+| **Recommendation**          | **Explanation**                                             |
+| --------------------------- | ----------------------------------------------------------- |
+| Follow Conventional Commits | Example: `feat(auth): add login functionality`.             |
+| Limit subject length        | A good commit subject is usually between 50–72 characters.  |
+| Avoid unclear messages      | Messages like `WIP`, `fix`, or `changes` should be avoided. |
+
+---
+
+## 5. Tools for Managing Hooks
+
+| **Tool**         | **Description**                                        | **Best For**                       |
+| ---------------- | ------------------------------------------------------ | ---------------------------------- |
+| pre-commit       | Multi-language hook framework using YAML configuration | Python, multi-language projects    |
+| Husky            | Git hook manager popular in Node.js projects           | JavaScript and Node.js projects    |
+| lint-staged      | Runs checks only on staged files                       | Faster linting and formatting      |
+| Lefthook         | Fast hook manager with YAML configuration              | Teams needing speed and simplicity |
+| Native Git hooks | Default Git hook scripts inside `.git/hooks`           | Simple local-only use cases        |
+
+**Recommendation:** Use `pre-commit` or `Lefthook` for version-controlled hook configuration. For Node.js projects, `Husky` with `lint-staged` is also a good option.
+
+---
+
+## 6. Advantages and Disadvantages
+
+### Advantages
+
+| **Advantage**                   | **Explanation**                                                                    |
+| ------------------------------- | ---------------------------------------------------------------------------------- |
+| Consistent code quality         | Hooks ensure all developers follow the same quality checks before committing code. |
+| Faster local feedback           | Developers get errors immediately instead of waiting for CI/CD failure.            |
+| Improved security               | Secret scanning hooks reduce the chance of pushing credentials or tokens.          |
+| Better team discipline          | Commit message and formatting rules help maintain clean project history.           |
+| Automation of repetitive checks | Manual checks like linting and formatting can be automated.                        |
+
+### Disadvantages
+
+| **Disadvantage**             | **Explanation**                                                                    |
+| ---------------------------- | ---------------------------------------------------------------------------------- |
+| Hooks can be bypassed        | Developers can skip hooks using `--no-verify`.                                     |
+| Slow commits                 | Heavy checks can make commits slower and frustrate developers.                     |
+| Setup overhead               | Teams need to configure and maintain hook tools.                                   |
+| False positives              | Secret scanners or linters may sometimes block safe code.                          |
+| Local environment dependency | Hooks may behave differently if developers have different tool versions installed. |
+
+---
+
+## 7. Best Practices
+
+| **Best Practice**                 | **Explanation**                                                             |
+| --------------------------------- | --------------------------------------------------------------------------- |
+| Keep pre-commit hooks lightweight | Heavy checks should be moved to pre-push or CI/CD.                          |
+| Version-control hook configs      | Store hook configuration in the repository so everyone uses the same setup. |
+| Align hooks with CI/CD            | CI/CD should repeat important checks because hooks can be skipped.          |
+| Document skip policy              | Clearly mention when `--no-verify` can be used.                             |
+| Provide onboarding steps          | New developers should know how to install and use hooks.                    |
+| Review hook changes               | Treat hook configuration changes like normal code changes.                  |
 
 ---
 
 ## 8. Conclusion
 
-Git Flow is useful for teams that need planned releases and stable production code.
+Commit hooks are a practical way to improve code quality, security, formatting, testing, and commit message standards before code reaches the remote repository.
 
-It gives a clear process for feature development, release preparation, and hotfixes.
+**Final Recommendations:**
 
-For small projects, a simpler workflow may be enough.
+| **Area**        | **Recommended Hook** | **Recommended Tool**                 |
+| --------------- | -------------------- | ------------------------------------ |
+| Linting         | pre-commit           | pre-commit, ESLint, Ruff             |
+| Formatting      | pre-commit           | Prettier, Black, gofmt               |
+| Secret scanning | pre-commit           | detect-secrets, gitleaks, truffleHog |
+| Commit messages | commit-msg           | commitlint, Conventional Commits     |
+| Tests           | pre-push             | pytest, npm test, Maven test         |
 
 ---
 
 ## 9. Contact Information
 
-Your Name
+| **Name**    | **Email**                                                                       |
+| ----------- | ------------------------------------------------------------------------------- |
+| Saransh Rai | [saransh.rai.snaatak@mygurukulam.co](mailto:saransh.rai.snaatak@mygurukulam.co) |
 
 ---
 
 ## 10. References
 
-| Resource                 | Link                                                                                                                                                         |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Git Documentation        | [https://git-scm.com/docs](https://git-scm.com/docs)                                                                                                         |
-| Git Flow Original Model  | [https://nvie.com/posts/a-successful-git-branching-model/](https://nvie.com/posts/a-successful-git-branching-model/)                                         |
-| Atlassian Git Flow Guide | [https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) |
+* [Git Hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)
+* [pre-commit](https://pre-commit.com/)
+* [Conventional Commits](https://www.conventionalcommits.org/)
+* [Husky](https://typicode.github.io/husky/)
+* [Lefthook](https://github.com/evilmartians/lefthook)
+* [detect-secrets](https://github.com/Yelp/detect-secrets)
+
