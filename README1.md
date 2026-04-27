@@ -8,6 +8,8 @@
 
 ## Table of Contents
 
+## Table of Contents
+
 * [1. Purpose](#1-purpose)
 * [2. Scope](#2-scope)
 * [3. Evaluation Criteria](#3-evaluation-criteria)
@@ -15,16 +17,24 @@
 * [5. GitLab Overview](#5-gitlab-overview)
 * [6. Key Features](#6-key-features)
 * [7. Architecture Overview](#7-architecture-overview)
+  * [7.1 High-Level GitLab Request Flow](#71-high-level-gitlab-request-flow)
+  * [7.2 Core Components of GitLab Architecture](#72-core-components-of-gitlab-architecture)
+  * [7.3 Git Operation Flow](#73-git-operation-flow)
+  * [7.4 CI/CD Architecture Flow](#74-cicd-architecture-flow)
+  * [7.5 Storage and Data Persistence](#75-storage-and-data-persistence)
+  * [7.6 Scalability and High Availability](#76-scalability-and-high-availability)
 * [8. Integration and Ecosystem](#8-integration-and-ecosystem)
 * [9. Installation and Setup](#9-installation-and-setup)
 * [10. Operational Considerations](#10-operational-considerations)
 * [11. Security Considerations](#11-security-considerations)
-* [12. Risks and Limitations](#12-risks-and-limitations)
-* [13. Recommendation](#13-recommendation)
-* [14. Post-Setup Validation](#14-post-setup-validation)
-* [15. Conclusion](#15-conclusion)
-* [16. Contact Information](#16-contact-information)
-* [17. References](#17-references)
+* [12. Tool Comparison](#12-tool-comparison)
+* [13. Advantages](#13-advantages)
+* [14. Disadvantages](#14-disadvantages)
+* [15. Recommendation](#15-recommendation)
+* [16. Post-Setup Validation](#16-post-setup-validation)
+* [17. Conclusion](#17-conclusion)
+* [18. Contact Information](#18-contact-information)
+* [19. References](#19-references)
 
 ---
 
@@ -265,21 +275,50 @@ Includes:
 
 ---
 
-# 12. Risks and Limitations
-
-* Paid features required for advanced use  
-* Infrastructure needed for self-hosted setup  
-* Scaling complexity for large systems  
+# 12. Tool Comparison
+| Feature        | GitLab              | GitHub             | Jenkins        |
+|----------------|--------------------|--------------------|----------------|
+| SCM            | Yes                | Yes                | No             |
+| CI/CD          | Built-in           | GitHub Actions     | Plugin-based   |
+| DevSecOps      | Integrated         | Partial            | External tools |
+| Hosting        | SaaS & Self-hosted | SaaS & Enterprise  | Self-hosted    |
+| Ease of Setup  | Medium             | Easy               | Complex        |
+| Scalability    | High               | High               | Medium         |
 
 ---
 
-# 13. Recommendation
+# 13. Advantages
+
+| Advantage | Description |
+|----------|-------------|
+| Unified Platform | Covers entire DevOps lifecycle in one tool |
+| Built-in CI/CD | No need for external pipeline tools |
+| Integrated DevSecOps | Security scanning embedded in pipelines |
+| Reduced Toolchain | Eliminates need for multiple tools |
+| Scalability | Supports both small teams and enterprise workloads |
+| Cloud-Native Support | Works well with Kubernetes and modern infra |
+
+---
+
+# 14. Disadvantages
+
+| Limitation | Description |
+|-----------|-------------|
+| Paid Features | Advanced capabilities require Ultimate/Premium plans |
+| Learning Curve | Complex for beginners compared to simpler tools |
+| Resource Intensive | Requires strong infrastructure for self-hosting |
+| Scaling Complexity | Enterprise scaling requires careful architecture planning |
+| Maintenance Overhead | Needs regular updates, backups, and monitoring | 
+
+---
+
+# 15. Recommendation
 
 GitLab is recommended due to its integrated DevOps capabilities, reducing tool fragmentation and improving efficiency across development workflows.
 
 ---
 
-# 14. Post-Setup Validation
+# 16. Post-Setup Validation
 
 | Validation Check  | Expected Outcome               |
 | ----------------- | ------------------------------ |
@@ -294,13 +333,13 @@ GitLab is recommended due to its integrated DevOps capabilities, reducing tool f
 
 ---
 
-# 15. Conclusion
+# 17. Conclusion
 
 GitLab provides a complete DevOps solution by integrating development, CI/CD, and security into one platform, improving collaboration and workflow efficiency.
 
 ---
 
-# 16. Contact Information
+# 18. Contact Information
 
 | Name        | Email Address            |
 | ----------- | ------------------------ |
@@ -308,7 +347,7 @@ GitLab provides a complete DevOps solution by integrating development, CI/CD, an
 
 ---
 
-# 17. References
+# 19. References
 
 | Reference Source           | Link |
 | -------------------------- | ---- |
