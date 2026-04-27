@@ -1,8 +1,18 @@
-# Tools Evaluation – GitLab (Documentation)
+<p align="center">
+  <img width="362" height="139" alt="image" src="https://github.com/user-attachments/assets/51eb4325-f30e-417b-8272-cde5619a4322" />
+  <br/>
+</p>
 
-| Author        | Created on | Version | Last updated by | Last edited on | L0 Reviewer   | L1 Reviewer  | L2 Reviewer  |
-| ------------- | ---------- | ------- | --------------- | -------------- | ------------- | ------------ | ------------ |
-| Saransh Rai   | 27-04-2026 | v1.1    | Saransh Rai     | 27-04-2026     | Komal Jaiswal | Akshit Kapil | Mahesh Kumar |
+<h1 align="center">Tools Evaluation – GitLab (Documentation)</h1>
+
+---
+
+## Author Information
+
+| Author      | Created on | Version | Last updated by | Last edited on | L0 Reviewer | L1 Reviewer     | L2 Reviewer     |
+| ----------- | ---------- | ------- | --------------- | -------------- | ----------- | --------------- | --------------- |
+| Saransh Rai | 25-04-2026 | v1.0    | Saransh Rai     | 25-04-2026     | Anuj Jain   | Prashant Sharma | Piyush Upadhyay |
+
 
 ---
 
@@ -217,7 +227,7 @@ For enterprise-level usage, GitLab components can be separated and scaled indepe
 
 For high availability, stateful components such as PostgreSQL, Redis, and Gitaly should be backed up and deployed carefully because they store critical GitLab data. :contentReference[oaicite:3]{index=3}
 
-## 7.7 Architecture Diagram Placeholder
+## 7.7 Architecture Diagram
 
 <img width="1000" height="554" alt="image" src="https://github.com/user-attachments/assets/dc6e7339-d11d-4673-98ca-f0577769dfd4" />
 
@@ -248,7 +258,8 @@ High-level setup steps:
 4. Define CI/CD pipeline  
 5. Set permissions  
 
-📌 *[Optional Screenshot: GitLab Project Setup / Runner Configuration]*
+<img width="1918" height="952" alt="image" src="https://github.com/user-attachments/assets/ebfe2ed6-7150-496e-92bc-c411192da23b" />
+
 
 ---
 
@@ -265,13 +276,13 @@ High-level setup steps:
 
 # 11. Security Considerations
 
-Includes:
-
-* RBAC  
-* SAST  
-* DAST  
-* Dependency scanning  
-* Audit logs  
+| Feature               | Description                                                                 |
+|----------------------|-----------------------------------------------------------------------------|
+| RBAC                 | Role-Based Access Control ensures users have permissions based on their role |
+| SAST                 | Static Application Security Testing scans source code for vulnerabilities before execution |
+| DAST                 | Dynamic Application Security Testing analyzes running applications for security issues |
+| Dependency Scanning  | Detects vulnerabilities in third-party libraries and dependencies used in the project |
+| Audit Logs           | Tracks user activities and system changes for monitoring and security auditing |
 
 ---
 
@@ -328,8 +339,8 @@ GitLab is recommended due to its integrated DevOps capabilities, reducing tool f
 | Security Scans    | Triggered                      |
 | Audit Logs        | Available                      |
 
-📌 *[Optional Screenshot: Successful Pipeline Execution]*  
-📌 *[Optional Screenshot: Merge Request Workflow]*  
+<img width="1918" height="953" alt="image" src="https://github.com/user-attachments/assets/81b185b7-a631-4bcd-84e1-e08b3337e423" />
+
 
 ---
 
@@ -341,9 +352,9 @@ GitLab provides a complete DevOps solution by integrating development, CI/CD, an
 
 # 18. Contact Information
 
-| Name        | Email Address            |
-| ----------- | ------------------------ |
-| Saransh Rai | your-email@example.com   |
+| Name        | Email                                                                           |
+| ----------- | ------------------------------------------------------------------------------- |
+| Saransh Rai | [saransh.rai.snaatak@mygurukulam.co](mailto:saransh.rai.snaatak@mygurukulam.co) |
 
 ---
 
