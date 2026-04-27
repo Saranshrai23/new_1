@@ -92,7 +92,8 @@ Supported environments:
 
 GitLab is a unified platform that supports the entire DevOps lifecycle.
 
-📌 *[Optional Screenshot: GitLab Dashboard / Project Overview]*
+<img width="1902" height="958" alt="image" src="https://github.com/user-attachments/assets/19d782aa-ff11-40d9-8221-85ca08774082" />
+
 
 Key capabilities include:
 
@@ -121,15 +122,97 @@ Key capabilities include:
 
 # 7. Architecture Overview
 
-GitLab architecture generally includes:
+GitLab follows a modular architecture where different components handle web requests, Git operations, background jobs, database storage, caching, and repository storage.
 
-* GitLab Server  
-* GitLab Runner  
-* PostgreSQL Database  
-* Redis  
-* Object Storage  
+GitLab is not only a Git repository hosting tool. It is a complete DevOps platform that includes source code management, CI/CD, issue tracking, merge requests, container registry, package registry, security scanning, and project management in one platform. :contentReference[oaicite:1]{index=1}
 
-📌 *[Insert Architecture Diagram Here]*
+## 7.1 High-Level GitLab Request Flow
+
+When a user accesses GitLab from a browser or Git client, the request flows through multiple backend components:
+
+1. User sends an HTTP/HTTPS request to GitLab.
+2. Nginx receives the request and works as a reverse proxy.
+3. GitLab Workhorse handles large or slow requests and forwards application requests to Puma.
+4. Puma runs the GitLab Rails application and processes web/API requests.
+5. Rails uses PostgreSQL for permanent metadata and Redis for cache/session/job queue data.
+6. Sidekiq processes background jobs such as notifications, pipeline updates, and asynchronous tasks.
+7. Gitaly handles Git repository storage and Git operations.
+8. GitLab Shell handles Git SSH operations such as clone, push, and pull.
+
+## 7.2 Core Components of GitLab Architecture
+
+| Component | Purpose |
+| --------- | ------- |
+| Nginx | Acts as a reverse proxy and handles incoming HTTP/HTTPS traffic |
+| GitLab Workhorse | Handles large HTTP requests such as uploads/downloads and forwards normal requests to Puma |
+| Puma | Web server that runs GitLab Rails application requests |
+| GitLab Rails | Main application layer that handles users, projects, merge requests, issues, permissions, and CI/CD metadata |
+| Sidekiq | Background job processor for long-running tasks |
+| Redis | Used for caching, sessions, temporary data, and Sidekiq job queues |
+| PostgreSQL | Stores long-lived metadata like users, projects, permissions, issues, merge requests, and pipeline information |
+| Gitaly | Handles Git repository storage and Git operations through gRPC |
+| GitLab Shell | Handles Git operations over SSH |
+| Object Storage | Stores artifacts, uploads, packages, container registry data, and large binary objects |
+
+## 7.3 Git Operation Flow
+
+When a developer performs Git operations such as clone, push, or pull:
+
+1. The developer connects to GitLab using SSH or HTTPS.
+2. For SSH-based Git operations, GitLab Shell authenticates the user.
+3. GitLab Shell communicates with Gitaly.
+4. Gitaly reads or writes repository data from the Git bare repository.
+5. GitLab Rails updates metadata in PostgreSQL when required.
+
+In GitLab, every project is stored as a bare repository on the server side. A bare repository stores Git data such as commits, branches, tags, and history, but it does not contain a normal working directory. :contentReference[oaicite:2]{index=2}
+
+## 7.4 CI/CD Architecture Flow
+
+GitLab CI/CD works with GitLab Runner.
+
+1. Developer pushes code to GitLab.
+2. GitLab checks the `.gitlab-ci.yml` file.
+3. A pipeline is created.
+4. GitLab Runner picks the job.
+5. Runner executes build, test, scan, or deployment jobs.
+6. Job logs and status are sent back to GitLab.
+7. Artifacts can be stored in GitLab storage or external object storage.
+
+GitLab Runner is not the main GitLab server. It is a separate agent that executes CI/CD jobs.
+
+## 7.5 Storage and Data Persistence
+
+| Data Type | Stored In |
+| --------- | --------- |
+| Repository data | Gitaly / Git bare repositories |
+| Users, groups, projects, issues, merge requests | PostgreSQL |
+| Cache, sessions, Sidekiq queues | Redis |
+| CI/CD artifacts, uploads, packages, registry data | Object Storage such as AWS S3, Azure Blob, MinIO, or local storage |
+
+## 7.6 Scalability and High Availability
+
+For small teams, GitLab can run on a single server using the Omnibus package.
+
+For enterprise-level usage, GitLab components can be separated and scaled independently:
+
+| Component | Scaling Approach |
+| --------- | ---------------- |
+| PostgreSQL | Use external PostgreSQL cluster or HA setup |
+| Redis | Use Redis cluster or HA Redis |
+| Gitaly | Use multiple Gitaly nodes |
+| Sidekiq | Add more Sidekiq workers |
+| Puma | Scale web application nodes |
+| Object Storage | Use external storage like S3 |
+| Load Balancer | Distribute traffic across GitLab nodes |
+
+For high availability, stateful components such as PostgreSQL, Redis, and Gitaly should be backed up and deployed carefully because they store critical GitLab data. :contentReference[oaicite:3]{index=3}
+
+## 7.7 Architecture Diagram Placeholder
+
+<img width="1000" height="554" alt="image" src="https://github.com/user-attachments/assets/dc6e7339-d11d-4673-98ca-f0577769dfd4" />
+
+<img width="1531" height="719" alt="image" src="https://github.com/user-attachments/assets/99e15f01-26e0-4f42-819a-15d5f01dc42d" />
+
 
 ---
 
