@@ -19,25 +19,33 @@
 
 ## **Table of Contents**
 
-1. [Introduction](#introduction)
-2. [Objective](#objective)
-3. [Prerequisites](#prerequisites)
-4. [Implementation Steps](#implementation-steps)
+1. [Introduction](#1-introduction)
+2. [Objective](#2-objective)
+3. [Prerequisites](#3-prerequisites)
+4. [Architecture / Flow](#4-architecture--flow)
+5. [Scope](#5-scope)
+6. [Implementation Steps](#6-implementation-steps)
 
-   * [Step 1: Verify DNS](#step-1---verify-dns)
-   * [Step 2: Verify Website Access](#step-2---verify-website-access)
-   * [Step 3: Install Certbot](#step-3---install-certbot)
-   * [Step 4: Generate SSL Certificate](#step-4---generate-ssl-certificate)
-   * [Step 5: Verify HTTPS](#step-5---verify-https)
-   * [Step 6: Auto Renewal](#step-6---auto-renewal)
-5. [Benefits](#benefits)
-6. [FAQs](#faqs)
-7. [Contact Information](#contact-information)
-8. [References](#references)
+   * 6.1 [Step 1: Verify DNS](#61-step-1---verify-dns)
+   * 6.2 [Step 2: Verify Website Access](#62-step-2---verify-website-access)
+   * 6.3 [Step 3: Install Certbot](#63-step-3---install-certbot)
+   * 6.4 [Step 4: Generate SSL Certificate](#64-step-4---generate-ssl-certificate)
+   * 6.5 [Step 5: Verify HTTPS](#65-step-5---verify-https)
+   * 6.6 [Step 6: Auto Renewal](#66-step-6---auto-renewal)
+7. [Test Cases / Validation](#7-test-cases--validation)
+8. [SSL Verification](#8-ssl-verification)
+9. [Benefits](#9-benefits)
+10. [Limitations](#10-limitations)
+11. [Rollback Plan](#11-rollback-plan)
+12. [FAQs](#12-faqs)
+13. [Future Enhancements](#13-future-enhancements)
+14. [Conclusion](#14-conclusion)
+15. [Contact Information](#15-contact-information)
+16. [References](#16-references)
 
 ---
 
-## **Introduction**
+## **1. Introduction**
 
 SSL (Secure Sockets Layer) enables **encrypted communication** between users and the web server. It converts HTTP traffic into HTTPS and improves security, trust, and SEO ranking.
 
@@ -49,7 +57,7 @@ This document is a **Proof of Concept (POC)** for SSL implementation using:
 
 ---
 
-## **Objective**
+## **2. Objective**
 
 | Objective           | Description                         |
 | ------------------- | ----------------------------------- |
@@ -60,7 +68,7 @@ This document is a **Proof of Concept (POC)** for SSL implementation using:
 
 ---
 
-## **Prerequisites**
+## **3. Prerequisites**
 
 | Requirement       | Status / Description |
 | ----------------- | -------------------- |
@@ -75,7 +83,7 @@ This document is a **Proof of Concept (POC)** for SSL implementation using:
 
 ---
 
-## **Architecture / Flow**
+## **4. Architecture / Flow**
 
 <img width="1774" height="887" alt="image" src="https://github.com/user-attachments/assets/99cfe57b-ca83-4a7d-9ed0-8586b011d660" />
 
@@ -84,7 +92,7 @@ User Request → DNS Resolution → EC2 Server (NGINX) → Certbot Validation (L
 
 ---
 
-## **Scope**
+## **5. Scope**
 
 **In Scope:**
 
@@ -99,9 +107,9 @@ User Request → DNS Resolution → EC2 Server (NGINX) → Certbot Validation (L
 
 ---
 
-## **Implementation Steps**
+## **6. Implementation Steps**
 
-### **Step 1 - Verify DNS**
+### **6.1 Step 1 - Verify DNS**
 
 📸 *Screenshot: Ping/NSLookup Output Showing Domain Resolution*
 
@@ -114,7 +122,7 @@ ping minvya.com
 
 ---
 
-### **Step 2 - Verify Website Access**
+### **6.2 Step 2 - Verify Website Access**
 
 ```bash
 curl -I http://minvya.com
@@ -129,7 +137,7 @@ HTTP/1.1 200 OK
 
 ---
 
-### **Step 3 - Install Certbot**
+### **6.3 Step 3 - Install Certbot**
 
 ```bash
 sudo apt update
@@ -141,7 +149,7 @@ sudo apt install certbot python3-certbot-nginx -y
 
 ---
 
-### **Step 4 - Generate SSL Certificate**
+### **6.4 Step 4 - Generate SSL Certificate**
 
 📸 *Screenshot: Certbot Successful SSL Generation*
 
@@ -160,7 +168,7 @@ Choose:
 
 ---
 
-### **Step 5 - Verify HTTPS**
+### **6.5 Step 5 - Verify HTTPS**
 
 Browser:
 
@@ -188,7 +196,7 @@ HTTP/2 200
 
 ---
 
-### **Step 6 - Auto Renewal**
+### **6.6 Step 6 - Auto Renewal**
 
 ```bash
 sudo systemctl status certbot.timer
@@ -204,7 +212,7 @@ sudo certbot renew --dry-run
 
 ---
 
-## **Test Cases / Validation**
+## **7. Test Cases / Validation**
 
 | Test Case    | Command / Action                              | Expected Result   | Status |
 | ------------ | --------------------------------------------- | ----------------- | ------ |
@@ -213,8 +221,7 @@ sudo certbot renew --dry-run
 | SSL check    | openssl s_client -connect minvya.com:443      | Valid certificate | ✅      |
 
 ---
-
-## **SSL Verification**
+## **8. SSL Verification**
 
 ```bash
 openssl s_client -connect minvya.com:443
@@ -224,7 +231,7 @@ You can also verify using SSL Labs test.
 
 ---
 
-## **Benefits**
+## **9. Benefits**
 
 | Benefit    | Description              |
 | ---------- | ------------------------ |
@@ -236,7 +243,7 @@ You can also verify using SSL Labs test.
 
 ---
 
-## **Limitations**
+## **10. Limitations**
 
 * Requires domain to be publicly accessible
 * DNS propagation delays may affect setup
@@ -245,7 +252,7 @@ You can also verify using SSL Labs test.
 
 ---
 
-## **Rollback Plan**
+## **11. Rollback Plan**
 
 If SSL configuration fails:
 
@@ -258,7 +265,7 @@ Revert NGINX configuration if required.
 
 ---
 
-## **FAQs**
+## **12. FAQs**
 
 **1. Is SSL free using Let’s Encrypt?**
 Yes, completely free.
@@ -277,7 +284,7 @@ Yes.
 
 ---
 
-## **Future Enhancements**
+## **13. Future Enhancements**
 
 * Implement wildcard SSL certificates
 * Automate SSL setup using Terraform/Ansible
@@ -286,13 +293,12 @@ Yes.
 
 ---
 
-## **Conclusion**
+## **14. Conclusion**
 
 This POC successfully demonstrates SSL/TLS configuration using NGINX and Let’s Encrypt. HTTPS is enabled, traffic is encrypted, and the solution is ready for production with minor enhancements.
 
 ---
-
-## **Contact Information**
+## **15. Contact Information**
 
 | Name         | Email                                                                             |
 | ------------ | --------------------------------------------------------------------------------- |
@@ -300,7 +306,7 @@ This POC successfully demonstrates SSL/TLS configuration using NGINX and Let’s
 
 ---
 
-## **References**
+## **16. References**
 
 | Resource      | Link                                                                 |
 | ------------- | -------------------------------------------------------------------- |
@@ -308,4 +314,5 @@ This POC successfully demonstrates SSL/TLS configuration using NGINX and Let’s
 | Let’s Encrypt | [https://letsencrypt.org/](https://letsencrypt.org/)                 |
 | NGINX         | [https://nginx.org/](https://nginx.org/)                             |
 | SSL Test      | [https://www.ssllabs.com/ssltest/](https://www.ssllabs.com/ssltest/) |
+
 
