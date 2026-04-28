@@ -4,168 +4,308 @@
   <br/>
 </p>
 
-<h1 align="center">Domain/Security | DNS/SSL | SSL POC</h1>
+<h1 align="center">🌐 Domain/Security | DNS/SSL | SSL POC</h1>
 
 ---
 
-## Author Information
+## **Author Information**
 
 | Author      | Created on | Version | Last updated by | Last edited on | L0 Reviewer | L1 Reviewer     | L2 Reviewer     |
 | ----------- | ---------- | ------- | --------------- | -------------- | ----------- | --------------- | --------------- |
 | Saransh Rai | 25-04-2026 | v1.0    | Saransh Rai     | 25-04-2026     | Anuj Jain   | Prashant Sharma | Piyush Upadhyay |
 
+
 ---
 
-## Table of Contents
+## **Table of Contents**
 
 1. [Introduction](#introduction)
-2. [POC Objective](#poc-objective)
+2. [Objective](#objective)
 3. [Prerequisites](#prerequisites)
-4. [SSL Setup Details](#ssl-setup-details)
-5. SSL Setup Steps
+4. [Implementation Steps](#implementation-steps)
 
-   * 5.1 [Step 1: Verify DNS Resolution](#step-1-verify-dns-resolution)
-   * 5.2 [Step 2: Install Web Server (Nginx)](#step-2-install-web-server-nginx)
-   * 5.3 [Step 3: Verify Web Server](#step-3-verify-web-server)
-   * 5.4 [Step 4: Install Certbot](#step-4-install-certbot)
-   * 5.5 [Step 5: Generate SSL Certificate](#step-5-generate-ssl-certificate)
-   * 5.6 [Step 6: Verify HTTPS Access](#step-6-verify-https-access)
-   * 5.7 [Step 7: Verify SSL Certificate Details](#step-7-verify-ssl-certificate-details)
-6. [Conclusion](#conclusion)
+   * [Step 1: Verify DNS](#step-1---verify-dns)
+   * [Step 2: Verify Website Access](#step-2---verify-website-access)
+   * [Step 3: Install Certbot](#step-3---install-certbot)
+   * [Step 4: Generate SSL Certificate](#step-4---generate-ssl-certificate)
+   * [Step 5: Verify HTTPS](#step-5---verify-https)
+   * [Step 6: Auto Renewal](#step-6---auto-renewal)
+5. [Benefits](#benefits)
+6. [FAQs](#faqs)
 7. [Contact Information](#contact-information)
-8. [Reference Table](#reference-table)
+8. [References](#references)
 
 ---
 
-## Introduction
+## **Introduction**
 
-This document provides a **Proof of Concept (POC)** for configuring **SSL/TLS** on a domain. The objective is to validate secure HTTPS communication using a trusted SSL certificate and capture execution proof through screenshots.
+SSL (Secure Sockets Layer) enables **encrypted communication** between users and the web server. It converts HTTP traffic into HTTPS and improves security, trust, and SEO ranking.
 
----
+This document is a **Proof of Concept (POC)** for SSL implementation using:
 
-## POC Objective
-
-| Objective               | Description                          |
-| ----------------------- | ------------------------------------ |
-| **SSL Setup**           | Configure SSL for a domain           |
-| **Security Validation** | Ensure HTTPS is enabled              |
-| **Evidence**            | Capture screenshots for verification |
-| **Outcome**             | Secure encrypted communication       |
+* NGINX
+* Certbot
+* Let’s Encrypt
 
 ---
 
-## Prerequisites
+## **Objective**
 
-| Requirement     | Description                   |
-| --------------- | ----------------------------- |
-| **Domain Name** | Registered domain             |
-| **DNS Access**  | Ability to update DNS records |
-| **Server**      | Linux VM / Cloud instance     |
-| **Web Server**  | Nginx or Apache               |
-| **Open Ports**  | 80 and 443                    |
-
----
-
-## SSL Setup Details
-
-| Item                | Value         |
-| ------------------- | ------------- |
-| **SSL Provider**    | Let’s Encrypt |
-| **SSL Tool**        | Certbot       |
-| **Validation Type** | HTTP-01       |
-| **Web Server**      | Nginx         |
+| Objective           | Description                         |
+| ------------------- | ----------------------------------- |
+| SSL Setup           | Configure HTTPS for a domain        |
+| Security Validation | Ensure encrypted communication      |
+| Evidence            | Validate using commands/screenshots |
+| Outcome             | Secure website with HTTPS           |
 
 ---
 
-## Step 1: Verify DNS Resolution
+## **Prerequisites**
 
-Check whether the domain resolves to the server IP.
+| Requirement       | Status / Description |
+| ----------------- | -------------------- |
+| Domain Name       | minvya.com           |
+| DNS Configuration | Pointed to EC2       |
+| Web Server        | NGINX Installed      |
+| Port 80           | Open (HTTP)          |
+| Port 443          | Open (HTTPS)         |
+
+
+<img width="976" height="447" alt="image" src="https://github.com/user-attachments/assets/cde943b2-1f61-48dc-b675-2a1790feb908" />
+
+---
+
+## **Architecture / Flow**
+
+<img width="1774" height="887" alt="image" src="https://github.com/user-attachments/assets/99cfe57b-ca83-4a7d-9ed0-8586b011d660" />
+
+
+User Request → DNS Resolution → EC2 Server (NGINX) → Certbot Validation (Let’s Encrypt) → SSL Certificate Issued → HTTPS Enabled
+
+---
+
+## **Scope**
+
+**In Scope:**
+
+* SSL setup using Let’s Encrypt
+* HTTPS validation using NGINX
+
+**Out of Scope:**
+
+* Load balancing
+* Advanced security (WAF, DDoS protection)
+* Paid SSL providers
+
+---
+
+## **Implementation Steps**
+
+### **Step 1 - Verify DNS**
+
+📸 *Screenshot: Ping/NSLookup Output Showing Domain Resolution*
 
 ```bash
-nslookup innovitisolutions.in
+ping minvya.com
+```
+
+<img width="968" height="290" alt="image" src="https://github.com/user-attachments/assets/482a8b34-0bad-434b-8b41-69eaebb4d707" />
+
+
+---
+
+### **Step 2 - Verify Website Access**
+
+```bash
+curl -I http://minvya.com
+```
+<img width="977" height="372" alt="image" src="https://github.com/user-attachments/assets/add61785-fd75-4812-b218-1f8aee846a3b" />
+
+Expected:
+
+```
+HTTP/1.1 200 OK
 ```
 
 ---
 
-## Step 2: Install Web Server (Nginx)
-
-Update the package repository and install the Nginx web server.
+### **Step 3 - Install Certbot**
 
 ```bash
 sudo apt update
-sudo apt install nginx -y
-```
-
----
-
-## Step 3: Verify Web Server
-
-Verify that the Nginx web server is running successfully.
-
-```bash
-systemctl status nginx
-```
-
----
-
-## Step 4: Install Certbot
-
-Install Certbot and the Nginx plugin to enable SSL certificate generation.
-
-```bash
 sudo apt install certbot python3-certbot-nginx -y
 ```
 
+<img width="962" height="562" alt="image" src="https://github.com/user-attachments/assets/1d120551-5b6e-4bad-b5e2-ba8d295d1103" />
+
+
 ---
 
-## Step 5: Generate SSL Certificate
+### **Step 4 - Generate SSL Certificate**
 
-Generate an SSL/TLS certificate for the domain using Certbot with the Nginx plugin.
+📸 *Screenshot: Certbot Successful SSL Generation*
 
 ```bash
-sudo certbot --nginx -d innovitisolutions.in -d www.innovitisolutions.in
+sudo certbot --nginx -d minvya.com -d www.minvya.com
 ```
+
+Choose:
+
+```
+2: Redirect HTTP to HTTPS
+```
+
+<img width="962" height="508" alt="image" src="https://github.com/user-attachments/assets/8f741a6e-b9f7-4e03-8c4c-f5805c87b0ee" />
+
 
 ---
 
-## Step 6: Verify HTTPS Access
+### **Step 5 - Verify HTTPS**
 
-Verify that HTTPS is enabled and the SSL certificate is working correctly.
-
-Open the domain in a web browser:
+Browser:
 
 ```
-https://innovitisolutions.in
+https://minvya.com
 ```
 
----
+<img width="947" height="517" alt="image" src="https://github.com/user-attachments/assets/f9a66b1a-2aa5-4c7b-96cf-2636d10fafde" />
 
-## Step 7: Verify SSL Certificate Details
 
-Verify the SSL/TLS certificate details and secure connection using OpenSSL.
+CLI:
 
 ```bash
-openssl s_client -connect innovitisolutions.in:443
+curl -I https://minvya.com
+```
+
+Expected:
+
+```
+HTTP/2 200
+```
+
+<img width="786" height="333" alt="image" src="https://github.com/user-attachments/assets/30083119-0969-4363-9980-7a0b3a7e574e" />
+
+
+---
+
+### **Step 6 - Auto Renewal**
+
+```bash
+sudo systemctl status certbot.timer
+```
+<img width="968" height="283" alt="image" src="https://github.com/user-attachments/assets/3beee1c9-a3a0-41b1-94d7-e69fb65271ee" />
+
+
+Optional:
+
+```bash
+sudo certbot renew --dry-run
 ```
 
 ---
 
-## Conclusion
+## **Test Cases / Validation**
 
-This Proof of Concept (POC) confirms that SSL/TLS has been successfully configured for the domain. Secure HTTPS communication is enabled, the SSL certificate has been issued and validated, and encrypted traffic is verified using both browser-based and command-line checks.
-
----
-
-## Contact Information
-
-| Name        | Email                                                                           |
-| ----------- | ------------------------------------------------------------------------------- |
-| Saransh Rai | [saransh.rai.snaatak@mygurukulam.co](mailto:saransh.rai.snaatak@mygurukulam.co) |
+| Test Case    | Command / Action                              | Expected Result   | Status |
+| ------------ | --------------------------------------------- | ----------------- | ------ |
+| HTTP access  | curl [http://minvya.com](http://minvya.com)   | 301 Redirect      | ✅      |
+| HTTPS access | curl [https://minvya.com](https://minvya.com) | 200 OK            | ✅      |
+| SSL check    | openssl s_client -connect minvya.com:443      | Valid certificate | ✅      |
 
 ---
 
-## Reference Table
+## **SSL Verification**
 
-| Reference Type    | Description                                                       | Link                                                                                                                                                                                                                                       |
-| ----------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| SSL Documentation | Conceptual DNS & SSL documentation used as reference for this POC | [https://github.com/Snaatak-Error-404/Sprint-1/blob/SCRUM-120-neha/Domain_Security%20/SSL/Documentation%20/README.md](https://github.com/Snaatak-Error-404/Sprint-1/blob/SCRUM-120-neha/Domain_Security%20/SSL/Documentation%20/README.md) |
+```bash
+openssl s_client -connect minvya.com:443
+```
+
+You can also verify using SSL Labs test.
+
+---
+
+## **Benefits**
+
+| Benefit    | Description              |
+| ---------- | ------------------------ |
+| Security   | Encrypts traffic         |
+| Trust      | Browser lock icon        |
+| SEO        | Better search ranking    |
+| Compliance | Meets security standards |
+| Automation | Auto renewal supported   |
+
+---
+
+## **Limitations**
+
+* Requires domain to be publicly accessible
+* DNS propagation delays may affect setup
+* Ports 80 and 443 must be open
+* Certbot auto-renewal depends on system service
+
+---
+
+## **Rollback Plan**
+
+If SSL configuration fails:
+
+```bash
+sudo nginx -t
+sudo systemctl restart nginx
+```
+
+Revert NGINX configuration if required.
+
+---
+
+## **FAQs**
+
+**1. Is SSL free using Let’s Encrypt?**
+Yes, completely free.
+
+**2. How long is certificate valid?**
+90 days with auto renewal.
+
+**3. Will HTTP still work?**
+Yes, it redirects to HTTPS.
+
+**4. Does SSL affect performance?**
+Minimal overhead.
+
+**5. Is domain ownership required?**
+Yes.
+
+---
+
+## **Future Enhancements**
+
+* Implement wildcard SSL certificates
+* Automate SSL setup using Terraform/Ansible
+* Support multiple domains
+* Integrate with CI/CD pipelines
+
+---
+
+## **Conclusion**
+
+This POC successfully demonstrates SSL/TLS configuration using NGINX and Let’s Encrypt. HTTPS is enabled, traffic is encrypted, and the solution is ready for production with minor enhancements.
+
+---
+
+## **Contact Information**
+
+| Name         | Email                                                                             |
+| ------------ | --------------------------------------------------------------------------------- |
+| Saransh Rai  | [saransh.rai.snaatak@mygurukulam.co](mailto:saransh.rai.snaatak@mygurukulam.co)   |
+
+---
+
+## **References**
+
+| Resource      | Link                                                                 |
+| ------------- | -------------------------------------------------------------------- |
+| Certbot       | [https://certbot.eff.org/](https://certbot.eff.org/)                 |
+| Let’s Encrypt | [https://letsencrypt.org/](https://letsencrypt.org/)                 |
+| NGINX         | [https://nginx.org/](https://nginx.org/)                             |
+| SSL Test      | [https://www.ssllabs.com/ssltest/](https://www.ssllabs.com/ssltest/) |
+
