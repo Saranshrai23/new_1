@@ -1,9 +1,10 @@
 <p align="center">
-  <img width="362" height="139" alt="image" src="https://github.com/user-attachments/assets/51eb4325-f30e-417b-8272-cde5619a4322" />
+  <img width="310" height="163" alt="image" src="https://github.com/user-attachments/assets/1a18a5b4-beb2-45b9-ab99-8b65fab67762" />
+
   <br/>
 </p>
 
-<h1 align="center">Tools Evaluation – GitLab (Documentation)</h1>
+<h1 align="center">Domain/Security | DNS/SSL | SSL POC</h1>
 
 ---
 
@@ -13,344 +14,149 @@
 | ----------- | ---------- | ------- | --------------- | -------------- | ----------- | --------------- | --------------- |
 | Saransh Rai | 25-04-2026 | v1.0    | Saransh Rai     | 25-04-2026     | Anuj Jain   | Prashant Sharma | Piyush Upadhyay |
 
-
 ---
 
 ## Table of Contents
 
-## Table of Contents
+1. [Introduction](#introduction)
+2. [POC Objective](#poc-objective)
+3. [Prerequisites](#prerequisites)
+4. [SSL Setup Details](#ssl-setup-details)
+5. SSL Setup Steps
 
-* [1. Purpose](#1-purpose)
-* [2. Scope](#2-scope)
-* [3. Evaluation Criteria](#3-evaluation-criteria)
-* [4. Pre-requisites](#4-pre-requisites)
-* [5. GitLab Overview](#5-gitlab-overview)
-* [6. Key Features](#6-key-features)
-* [7. Architecture Overview](#7-architecture-overview)
-  * [7.1 High-Level GitLab Request Flow](#71-high-level-gitlab-request-flow)
-  * [7.2 Core Components of GitLab Architecture](#72-core-components-of-gitlab-architecture)
-  * [7.3 Git Operation Flow](#73-git-operation-flow)
-  * [7.4 CI/CD Architecture Flow](#74-cicd-architecture-flow)
-  * [7.5 Storage and Data Persistence](#75-storage-and-data-persistence)
-  * [7.6 Scalability and High Availability](#76-scalability-and-high-availability)
-* [8. Integration and Ecosystem](#8-integration-and-ecosystem)
-* [9. Installation and Setup](#9-installation-and-setup)
-* [10. Operational Considerations](#10-operational-considerations)
-* [11. Security Considerations](#11-security-considerations)
-* [12. Tool Comparison](#12-tool-comparison)
-* [13. Advantages](#13-advantages)
-* [14. Disadvantages](#14-disadvantages)
-* [15. Recommendation](#15-recommendation)
-* [16. Post-Setup Validation](#16-post-setup-validation)
-* [17. Conclusion](#17-conclusion)
-* [18. Contact Information](#18-contact-information)
-* [19. References](#19-references)
+   * 5.1 [Step 1: Verify DNS Resolution](#step-1-verify-dns-resolution)
+   * 5.2 [Step 2: Install Web Server (Nginx)](#step-2-install-web-server-nginx)
+   * 5.3 [Step 3: Verify Web Server](#step-3-verify-web-server)
+   * 5.4 [Step 4: Install Certbot](#step-4-install-certbot)
+   * 5.5 [Step 5: Generate SSL Certificate](#step-5-generate-ssl-certificate)
+   * 5.6 [Step 6: Verify HTTPS Access](#step-6-verify-https-access)
+   * 5.7 [Step 7: Verify SSL Certificate Details](#step-7-verify-ssl-certificate-details)
+6. [Conclusion](#conclusion)
+7. [Contact Information](#contact-information)
+8. [Reference Table](#reference-table)
 
 ---
 
-# 1. Purpose
+## Introduction
 
-This document evaluates GitLab as a unified DevOps platform. It highlights its features, architecture, CI/CD capabilities, and security aspects to understand how it supports modern software development workflows.
-
----
-
-# 2. Scope
-
-This evaluation includes:
-
-* Source Code Management (SCM)
-* CI/CD pipeline automation
-* Security and DevSecOps capabilities
-* Integration ecosystem
-* Installation and operational aspects
-
-Applicable for:
-
-* Development Teams  
-* QA Teams  
-* DevOps Teams  
-* Platform Engineering Teams  
-
-Supported environments:
-
-* Development  
-* QA  
-* Staging  
-* Production  
+This document provides a **Proof of Concept (POC)** for configuring **SSL/TLS** on a domain. The objective is to validate secure HTTPS communication using a trusted SSL certificate and capture execution proof through screenshots.
 
 ---
 
-# 3. Evaluation Criteria
+## POC Objective
 
-| Criteria         | Description                             |
-| ---------------- | --------------------------------------- |
-| SCM Capabilities | Code version control and collaboration  |
-| CI/CD            | Pipeline automation and deployment      |
-| Security         | Built-in DevSecOps features             |
-| Integration      | Support for external tools and services |
-| Scalability      | Ability to support enterprise workloads |
-| Ease of Use      | Learning curve and usability            |
-| Maintenance      | Operational effort required             |
-| Cost             | Licensing and infrastructure cost       |
+| Objective               | Description                          |
+| ----------------------- | ------------------------------------ |
+| **SSL Setup**           | Configure SSL for a domain           |
+| **Security Validation** | Ensure HTTPS is enabled              |
+| **Evidence**            | Capture screenshots for verification |
+| **Outcome**             | Secure encrypted communication       |
 
 ---
 
-# 4. Pre-requisites
+## Prerequisites
 
-### System Requirements (Self-Hosted GitLab)
-
-| Requirement | Minimum Recommendation             |
-| ----------- | ---------------------------------- |
-| Processor   | Dual-Core                          |
-| RAM         | 4–8 GB                             |
-| Disk        | 20–50 GB                           |
-| OS          | Linux (Ubuntu 22.04 or compatible) |
-
----
-
-# 5. GitLab Overview
-
-GitLab is a unified platform that supports the entire DevOps lifecycle.
-
-<img width="1902" height="958" alt="image" src="https://github.com/user-attachments/assets/19d782aa-ff11-40d9-8221-85ca08774082" />
-
-
-Key capabilities include:
-
-* Source Code Management (Git repositories)
-* Built-in CI/CD pipelines
-* Integrated DevSecOps tools
-* Project management and issue tracking
-* Container and package registries
+| Requirement     | Description                   |
+| --------------- | ----------------------------- |
+| **Domain Name** | Registered domain             |
+| **DNS Access**  | Ability to update DNS records |
+| **Server**      | Linux VM / Cloud instance     |
+| **Web Server**  | Nginx or Apache               |
+| **Open Ports**  | 80 and 443                    |
 
 ---
 
-# 6. Key Features
+## SSL Setup Details
 
-| Feature                | Description                           |
-| ---------------------- | ------------------------------------- |
-| Source Code Management | Git-based repository management       |
-| Merge Requests         | Code review and collaboration         |
-| CI/CD Pipelines        | Automated build, test, and deployment |
-| GitLab Runners         | Execute pipeline jobs                 |
-| Issue Tracking         | Project management capabilities       |
-| Container Registry     | Store Docker images                   |
-| Package Registry       | Store dependencies and artifacts      |
-| Wiki                   | Documentation support                 |
+| Item                | Value         |
+| ------------------- | ------------- |
+| **SSL Provider**    | Let’s Encrypt |
+| **SSL Tool**        | Certbot       |
+| **Validation Type** | HTTP-01       |
+| **Web Server**      | Nginx         |
 
 ---
 
-# 7. Architecture Overview
+## Step 1: Verify DNS Resolution
 
-GitLab follows a modular architecture where different components handle web requests, Git operations, background jobs, database storage, caching, and repository storage.
+Check whether the domain resolves to the server IP.
 
-GitLab is not only a Git repository hosting tool. It is a complete DevOps platform that includes source code management, CI/CD, issue tracking, merge requests, container registry, package registry, security scanning, and project management in one platform. :contentReference[oaicite:1]{index=1}
-
-## 7.1 High-Level GitLab Request Flow
-
-When a user accesses GitLab from a browser or Git client, the request flows through multiple backend components:
-
-1. User sends an HTTP/HTTPS request to GitLab.
-2. Nginx receives the request and works as a reverse proxy.
-3. GitLab Workhorse handles large or slow requests and forwards application requests to Puma.
-4. Puma runs the GitLab Rails application and processes web/API requests.
-5. Rails uses PostgreSQL for permanent metadata and Redis for cache/session/job queue data.
-6. Sidekiq processes background jobs such as notifications, pipeline updates, and asynchronous tasks.
-7. Gitaly handles Git repository storage and Git operations.
-8. GitLab Shell handles Git SSH operations such as clone, push, and pull.
-
-## 7.2 Core Components of GitLab Architecture
-
-| Component | Purpose |
-| --------- | ------- |
-| Nginx | Acts as a reverse proxy and handles incoming HTTP/HTTPS traffic |
-| GitLab Workhorse | Handles large HTTP requests such as uploads/downloads and forwards normal requests to Puma |
-| Puma | Web server that runs GitLab Rails application requests |
-| GitLab Rails | Main application layer that handles users, projects, merge requests, issues, permissions, and CI/CD metadata |
-| Sidekiq | Background job processor for long-running tasks |
-| Redis | Used for caching, sessions, temporary data, and Sidekiq job queues |
-| PostgreSQL | Stores long-lived metadata like users, projects, permissions, issues, merge requests, and pipeline information |
-| Gitaly | Handles Git repository storage and Git operations through gRPC |
-| GitLab Shell | Handles Git operations over SSH |
-| Object Storage | Stores artifacts, uploads, packages, container registry data, and large binary objects |
-
-## 7.3 Git Operation Flow
-
-When a developer performs Git operations such as clone, push, or pull:
-
-1. The developer connects to GitLab using SSH or HTTPS.
-2. For SSH-based Git operations, GitLab Shell authenticates the user.
-3. GitLab Shell communicates with Gitaly.
-4. Gitaly reads or writes repository data from the Git bare repository.
-5. GitLab Rails updates metadata in PostgreSQL when required.
-
-In GitLab, every project is stored as a bare repository on the server side. A bare repository stores Git data such as commits, branches, tags, and history, but it does not contain a normal working directory. :contentReference[oaicite:2]{index=2}
-
-## 7.4 CI/CD Architecture Flow
-
-GitLab CI/CD works with GitLab Runner.
-
-1. Developer pushes code to GitLab.
-2. GitLab checks the `.gitlab-ci.yml` file.
-3. A pipeline is created.
-4. GitLab Runner picks the job.
-5. Runner executes build, test, scan, or deployment jobs.
-6. Job logs and status are sent back to GitLab.
-7. Artifacts can be stored in GitLab storage or external object storage.
-
-GitLab Runner is not the main GitLab server. It is a separate agent that executes CI/CD jobs.
-
-## 7.5 Storage and Data Persistence
-
-| Data Type | Stored In |
-| --------- | --------- |
-| Repository data | Gitaly / Git bare repositories |
-| Users, groups, projects, issues, merge requests | PostgreSQL |
-| Cache, sessions, Sidekiq queues | Redis |
-| CI/CD artifacts, uploads, packages, registry data | Object Storage such as AWS S3, Azure Blob, MinIO, or local storage |
-
-## 7.6 Scalability and High Availability
-
-For small teams, GitLab can run on a single server using the Omnibus package.
-
-For enterprise-level usage, GitLab components can be separated and scaled independently:
-
-| Component | Scaling Approach |
-| --------- | ---------------- |
-| PostgreSQL | Use external PostgreSQL cluster or HA setup |
-| Redis | Use Redis cluster or HA Redis |
-| Gitaly | Use multiple Gitaly nodes |
-| Sidekiq | Add more Sidekiq workers |
-| Puma | Scale web application nodes |
-| Object Storage | Use external storage like S3 |
-| Load Balancer | Distribute traffic across GitLab nodes |
-
-For high availability, stateful components such as PostgreSQL, Redis, and Gitaly should be backed up and deployed carefully because they store critical GitLab data. :contentReference[oaicite:3]{index=3}
-
-## 7.7 Architecture Diagram
-
-<img width="1000" height="554" alt="image" src="https://github.com/user-attachments/assets/dc6e7339-d11d-4673-98ca-f0577769dfd4" />
-
-<img width="1531" height="719" alt="image" src="https://github.com/user-attachments/assets/99e15f01-26e0-4f42-819a-15d5f01dc42d" />
-
+```bash
+nslookup innovitisolutions.in
+```
 
 ---
 
-# 8. Integration and Ecosystem
+## Step 2: Install Web Server (Nginx)
 
-GitLab integrates with:
+Update the package repository and install the Nginx web server.
 
-* Kubernetes  
-* AWS, GCP, Azure  
-* Monitoring tools  
-* Security tools  
-* Identity providers  
-
----
-
-# 9. Installation and Setup
-
-High-level setup steps:
-
-1. Install GitLab  
-2. Create repositories  
-3. Configure runners  
-4. Define CI/CD pipeline  
-5. Set permissions  
-
-<img width="1918" height="952" alt="image" src="https://github.com/user-attachments/assets/ebfe2ed6-7150-496e-92bc-c411192da23b" />
-
+```bash
+sudo apt update
+sudo apt install nginx -y
+```
 
 ---
 
-# 10. Operational Considerations
+## Step 3: Verify Web Server
 
-| Area        | Description                                        |
-| ----------- | -------------------------------------------------- |
-| Maintenance | Requires updates and backups                       |
-| Scaling     | Supports horizontal scaling                        |
-| Monitoring  | Integrates with monitoring tools                   |
-| Upgrades    | Regular updates recommended                        |
+Verify that the Nginx web server is running successfully.
 
----
-
-# 11. Security Considerations
-
-| Feature               | Description                                                                 |
-|----------------------|-----------------------------------------------------------------------------|
-| RBAC                 | Role-Based Access Control ensures users have permissions based on their role |
-| SAST                 | Static Application Security Testing scans source code for vulnerabilities before execution |
-| DAST                 | Dynamic Application Security Testing analyzes running applications for security issues |
-| Dependency Scanning  | Detects vulnerabilities in third-party libraries and dependencies used in the project |
-| Audit Logs           | Tracks user activities and system changes for monitoring and security auditing |
+```bash
+systemctl status nginx
+```
 
 ---
 
-# 12. Tool Comparison
-| Feature        | GitLab              | GitHub             | Jenkins        |
-|----------------|--------------------|--------------------|----------------|
-| SCM            | Yes                | Yes                | No             |
-| CI/CD          | Built-in           | GitHub Actions     | Plugin-based   |
-| DevSecOps      | Integrated         | Partial            | External tools |
-| Hosting        | SaaS & Self-hosted | SaaS & Enterprise  | Self-hosted    |
-| Ease of Setup  | Medium             | Easy               | Complex        |
-| Scalability    | High               | High               | Medium         |
+## Step 4: Install Certbot
+
+Install Certbot and the Nginx plugin to enable SSL certificate generation.
+
+```bash
+sudo apt install certbot python3-certbot-nginx -y
+```
 
 ---
 
-# 13. Advantages
+## Step 5: Generate SSL Certificate
 
-| Advantage | Description |
-|----------|-------------|
-| Unified Platform | Covers entire DevOps lifecycle in one tool |
-| Built-in CI/CD | No need for external pipeline tools |
-| Integrated DevSecOps | Security scanning embedded in pipelines |
-| Reduced Toolchain | Eliminates need for multiple tools |
-| Scalability | Supports both small teams and enterprise workloads |
-| Cloud-Native Support | Works well with Kubernetes and modern infra |
+Generate an SSL/TLS certificate for the domain using Certbot with the Nginx plugin.
+
+```bash
+sudo certbot --nginx -d innovitisolutions.in -d www.innovitisolutions.in
+```
 
 ---
 
-# 14. Disadvantages
+## Step 6: Verify HTTPS Access
 
-| Limitation | Description |
-|-----------|-------------|
-| Paid Features | Advanced capabilities require Ultimate/Premium plans |
-| Learning Curve | Complex for beginners compared to simpler tools |
-| Resource Intensive | Requires strong infrastructure for self-hosting |
-| Scaling Complexity | Enterprise scaling requires careful architecture planning |
-| Maintenance Overhead | Needs regular updates, backups, and monitoring | 
+Verify that HTTPS is enabled and the SSL certificate is working correctly.
 
----
+Open the domain in a web browser:
 
-# 15. Recommendation
-
-GitLab is recommended due to its integrated DevOps capabilities, reducing tool fragmentation and improving efficiency across development workflows.
+```
+https://innovitisolutions.in
+```
 
 ---
 
-# 16. Post-Setup Validation
+## Step 7: Verify SSL Certificate Details
 
-| Validation Check  | Expected Outcome               |
-| ----------------- | ------------------------------ |
-| Repository Access | Verified                       |
-| CI/CD Pipeline    | Running successfully           |
-| Merge Requests    | Working                        |
-| Security Scans    | Triggered                      |
-| Audit Logs        | Available                      |
+Verify the SSL/TLS certificate details and secure connection using OpenSSL.
 
-<img width="1918" height="953" alt="image" src="https://github.com/user-attachments/assets/81b185b7-a631-4bcd-84e1-e08b3337e423" />
-
+```bash
+openssl s_client -connect innovitisolutions.in:443
+```
 
 ---
 
-# 17. Conclusion
+## Conclusion
 
-GitLab provides a complete DevOps solution by integrating development, CI/CD, and security into one platform, improving collaboration and workflow efficiency.
+This Proof of Concept (POC) confirms that SSL/TLS has been successfully configured for the domain. Secure HTTPS communication is enabled, the SSL certificate has been issued and validated, and encrypted traffic is verified using both browser-based and command-line checks.
 
 ---
 
-# 18. Contact Information
+## Contact Information
 
 | Name        | Email                                                                           |
 | ----------- | ------------------------------------------------------------------------------- |
@@ -358,12 +164,8 @@ GitLab provides a complete DevOps solution by integrating development, CI/CD, an
 
 ---
 
-# 19. References
+## Reference Table
 
-| Reference Source           | Link |
-| -------------------------- | ---- |
-| GitLab Documentation       | https://docs.gitlab.com |
-| GitLab CI/CD Documentation | https://docs.gitlab.com/ee/ci |
-| GitLab Architecture Docs   | https://docs.gitlab.com/ee/development/architecture |
-
----
+| Reference Type    | Description                                                       | Link                                                                                                                                                                                                                                       |
+| ----------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| SSL Documentation | Conceptual DNS & SSL documentation used as reference for this POC | [https://github.com/Snaatak-Error-404/Sprint-1/blob/SCRUM-120-neha/Domain_Security%20/SSL/Documentation%20/README.md](https://github.com/Snaatak-Error-404/Sprint-1/blob/SCRUM-120-neha/Domain_Security%20/SSL/Documentation%20/README.md) |
