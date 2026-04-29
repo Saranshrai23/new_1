@@ -25,7 +25,7 @@
    6.4 [Step 4: Other Dependencies](#64-step-4-other-dependencies)  
    6.5 [Step 5: Clone Repository](#65-step-5-clone-repository)  
    6.6 [Step 6: Configure Database Connections](#66-step-6-configure-database-connections)  
-   6.7 [Step 7: Database Setup (PostgreSQL + Liquibase)](#67-step-7-database-setup-postgresql--liquibase)  
+   6.7 [Step 7: Database Setup PostgreSQL Liquibase](#67-step-7-database-setup-postgresql--liquibase)  
    6.8 [Step 8: Build / Artifact Generation](#68-step-8-build--artifact-generation)  
    6.9 [Step 9: Start Attendance API](#69-step-9-start-attendance-api)  
    6.10 [Step 10: Verify Attendance API](#610-step-10-verify-attendance-api)  
@@ -200,7 +200,7 @@ ls
 <img width="1112" height="82" alt="image" src="https://github.com/user-attachments/assets/ce5fcde3-cda5-4bea-9e3b-dbfa5ee4e48a" />
 
 
-## Step 6: Configure Database Connections
+## 6.6 Step 6: Configure Database Connections
 
 Edit `config.yaml` in the attendance-api root:
  
@@ -273,7 +273,7 @@ The `records` table has columns: `id`, `name`, `status`, `date`.
 <img width="1143" height="917" alt="image" src="https://github.com/user-attachments/assets/13cdf820-2ef5-4abb-a245-55f66b9077a6" />
 
 
-## Step 8: Build / Artifact Generation
+## 6.8 Step 8: Build / Artifact Generation
 
 ```
 cd ~/attendance-api
@@ -287,7 +287,7 @@ poetry install
 <img width="1016" height="347" alt="image" src="https://github.com/user-attachments/assets/9d323749-f3a3-4ced-a72a-8bdeec5bb521" />
 
 
-## Step 9: Start Attendance API
+## 6.9 Step 9: Start Attendance API
 
 ```
 nohup poetry run gunicorn --bind 0.0.0.0:8081 app:app &
@@ -296,7 +296,7 @@ nohup poetry run gunicorn --bind 0.0.0.0:8081 app:app &
 <img width="1341" height="182" alt="image" src="https://github.com/user-attachments/assets/7fef1266-97d3-46d6-a881-a29b8ee5b4bd" />
 
 
-## Step 10: Verify Attendance API
+## 6.10 Step 10: Verify Attendance API
 
 ```
 curl http://localhost:8081/api/v1/attendance/health
