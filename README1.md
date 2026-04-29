@@ -18,7 +18,6 @@
 4. [Architecture](#4-architecture)  
 5. [Dataflow Diagram](#5-dataflow-diagram)  
 6. [Step-by-step POC](#6-step-by-step-poc)  
-
    6.1 [Step 1: Launch EC2 Instance](#61-step-1-launch-ec2-instance)  
    6.2 [Step 2: Connect to EC2 via SSH](#62-step-2-connect-to-ec2-via-ssh)  
    6.3 [Step 3: Installation of Software Dependencies](#63-step-3-installation-of-software-dependencies)  
@@ -29,7 +28,6 @@
    6.8 [Step 8: Build / Artifact Generation](#68-step-8-build--artifact-generation)  
    6.9 [Step 9: Start Attendance API](#69-step-9-start-attendance-api)  
    6.10 [Step 10: Verify Attendance API](#610-step-10-verify-attendance-api)  
-
 7. [Validation](#7-validation)  
 8. [Troubleshooting](#8-troubleshooting)  
 9. [FAQs](#9-faqs)  
