@@ -47,13 +47,7 @@
 
 ## **1. Introduction**
 
-SSL (Secure Sockets Layer) enables **encrypted communication** between users and the web server. It converts HTTP traffic into HTTPS and improves security, trust, and SEO ranking.
-
-This document is a **Proof of Concept (POC)** for SSL implementation using:
-
-* NGINX
-* Certbot
-* Let’s Encrypt
+SSL (Secure Sockets Layer) is a security protocol that enables encrypted communication between users and web servers, ensuring that sensitive data is transmitted securely over the internet. By converting standard HTTP traffic into HTTPS, SSL enhances data protection, builds user trust, and contributes to improved SEO rankings. This document serves as a Proof of Concept (POC) for implementing SSL using tools such as NGINX, Certbot, and Let’s Encrypt, demonstrating a practical approach to securing web applications.
 
 ---
 
@@ -151,8 +145,6 @@ sudo apt install certbot python3-certbot-nginx -y
 
 ### **6.4 Step 4 - Generate SSL Certificate**
 
-📸 *Screenshot: Certbot Successful SSL Generation*
-
 ```bash
 sudo certbot --nginx -d minvya.com -d www.minvya.com
 ```
@@ -245,11 +237,12 @@ You can also verify using SSL Labs test.
 
 ## **10. Limitations**
 
-* Requires domain to be publicly accessible
-* DNS propagation delays may affect setup
-* Ports 80 and 443 must be open
-* Certbot auto-renewal depends on system service
-
+| Limitation | Description |
+|-----------|------------|
+| Public Domain Requirement | SSL setup requires the domain to be publicly accessible for certificate validation. |
+| DNS Propagation Delay | Changes in DNS settings may take time to propagate, which can delay the setup process. |
+| Open Ports Requirement | Ports 80 (HTTP) and 443 (HTTPS) must be open to allow validation and secure communication. |
+| Certbot Auto-Renewal Dependency | Automatic renewal of SSL certificates depends on system services like cron or systemd timers. |
 ---
 
 ## **11. Rollback Plan**
@@ -308,11 +301,11 @@ This POC successfully demonstrates SSL/TLS configuration using NGINX and Let’s
 
 ## **16. References**
 
-| Resource      | Link                                                                 |
-| ------------- | -------------------------------------------------------------------- |
-| Certbot       | [https://certbot.eff.org/](https://certbot.eff.org/)                 |
-| Let’s Encrypt | [https://letsencrypt.org/](https://letsencrypt.org/)                 |
-| NGINX         | [https://nginx.org/](https://nginx.org/)                             |
-| SSL Test      | [https://www.ssllabs.com/ssltest/](https://www.ssllabs.com/ssltest/) |
+| Topic | Description |
+|-------|------------|
+| [Certbot](https://certbot.eff.org/) | Tool for automatically obtaining and renewing SSL/TLS certificates from Let’s Encrypt. |
+| [Let’s Encrypt](https://letsencrypt.org/) | Free, automated, and open Certificate Authority providing SSL/TLS certificates. |
+| [NGINX](https://nginx.org/) | High-performance web server used for hosting applications and configuring HTTPS. |
+| [SSL Test](https://www.ssllabs.com/ssltest/) | Online tool to analyze and validate SSL/TLS configuration and security. |
 
 
