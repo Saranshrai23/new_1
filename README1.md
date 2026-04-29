@@ -83,12 +83,15 @@ This document is a Proof of Concept (POC) for deploying the Attendance API on an
 
 # 4. Architecture
 
+<br>
 <img width="557" height="391" alt="image" src="https://github.com/user-attachments/assets/95de59c4-0e5b-4a21-a849-83e0d08db4df" />
-
+<br>
 
 # 5. Dataflow Diagram
 
+<br>
 <img width="738" height="567" alt="image" src="https://github.com/user-attachments/assets/a40894d4-47c5-496e-a086-981e2e26d69d" />
+<br>
 
 ---
 
@@ -96,8 +99,9 @@ This document is a Proof of Concept (POC) for deploying the Attendance API on an
 
 ## 6.1 Step 1: Launch EC2 Instance
 
+<br>
 <img width="1917" height="953" alt="image" src="https://github.com/user-attachments/assets/1b5dcdcc-8672-4db2-8e7c-2265f67f3eb6" />
-
+<br>
 
 ## 6.2 Step 2: Connect to EC2 via SSH
 
@@ -105,8 +109,9 @@ This document is a Proof of Concept (POC) for deploying the Attendance API on an
 ssh -i "new_key.pem" ubuntu@ec2-65-0-105-103.ap-south-1.compute.amazonaws.com
 ```
 
+<br>
 <img width="1292" height="722" alt="image" src="https://github.com/user-attachments/assets/4e604dc8-e912-485e-9d96-4885e0d276aa" />
-
+<br>
 
 ## 6.3 Step 3: Installation of software Dependencies
 
@@ -116,12 +121,36 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl wget git nano net-tools build-essential
 sudo apt install openjdk-17-jdk -y
 
+```
+
+<br>
+<img width="1337" height="692" alt="image" src="https://github.com/user-attachments/assets/65669e5c-9c11-4220-beff-486053c6f714" />
+<br>
+
+
+```bash
 # Python (required for application)
 sudo apt install -y python3.11 python3.11-venv python3.11-dev
 python3.11 --version
 
+```
+
+<br>
+<img width="1852" height="458" alt="image" src="https://github.com/user-attachments/assets/1e8d8ca1-603a-4fcb-857a-c7e87a88098b" />
+<br>
+
+```bash
+
 # Required to build psycopg2 (PostgreSQL adapter)
 sudo apt install -y gcc libpq-dev
+
+```
+
+<br>
+<img width="1560" height="482" alt="image" src="https://github.com/user-attachments/assets/4844fbb6-7623-4dfa-bb85-911345f66d9b" />
+<br>
+
+```bash
 
 # Install Poetry (dependency manager)
 curl -sSL https://install.python-poetry.org | python3 -
@@ -134,14 +163,9 @@ python3.11 --version
 poetry --version
 ```
 
-<img width="1337" height="692" alt="image" src="https://github.com/user-attachments/assets/65669e5c-9c11-4220-beff-486053c6f714" />
-
-<img width="1852" height="458" alt="image" src="https://github.com/user-attachments/assets/1e8d8ca1-603a-4fcb-857a-c7e87a88098b" />
-
-<img width="1560" height="482" alt="image" src="https://github.com/user-attachments/assets/4844fbb6-7623-4dfa-bb85-911345f66d9b" />
-
+<br>
 <img width="1131" height="873" alt="image" src="https://github.com/user-attachments/assets/7a484c31-1048-48ef-8841-1fa62f28f9f2" />
-
+<br>
 
 
 ## 6.4 Step 4: Other Dependencies
@@ -165,25 +189,32 @@ sudo apt install -y liquibase
 # Verify Liquibase
 liquibase --version
 
+```
+<br>
+<img width="1052" height="891" alt="image" src="https://github.com/user-attachments/assets/7bab72c5-588c-4146-a739-7d572028599e" />
+<br>
+
+```bash
 # Download PostgreSQL JDBC driver (required by Liquibase)
 mkdir -p ~/attendance-api/lib
 wget -P ~/attendance-api/lib/ \
 https://jdbc.postgresql.org/download/postgresql-42.7.2.jar
 
+```
+
+<br>
+<img width="1881" height="335" alt="image" src="https://github.com/user-attachments/assets/31b057be-02b1-43ab-b62f-5dbb04825e8c" />
+<br>
+
+```bash
 # Install Redis server
 sudo apt install -y redis-server
 sudo systemctl enable --now redis-server
 
 ```
-
-<img width="1052" height="891" alt="image" src="https://github.com/user-attachments/assets/7bab72c5-588c-4146-a739-7d572028599e" />
-
-<img width="1867" height="241" alt="image" src="https://github.com/user-attachments/assets/308e4bba-d65e-4b03-9e12-ed4b67d61609" />
-
-<img width="1881" height="335" alt="image" src="https://github.com/user-attachments/assets/31b057be-02b1-43ab-b62f-5dbb04825e8c" />
-
+<br>
 <img width="1120" height="890" alt="image" src="https://github.com/user-attachments/assets/f83c13ff-aeed-4282-8e7a-1c21ecea2caa" />
-
+<br>
 
 
 ## 6.5 Step 5: Clone Repository
@@ -194,10 +225,13 @@ cd ~/attendance-api
 ls
 ```
 
-
+<br>
 <img width="1091" height="152" alt="image" src="https://github.com/user-attachments/assets/efde0873-6759-438a-84af-0c285ade0af2" />
+<br>
 
+<br>
 <img width="1112" height="82" alt="image" src="https://github.com/user-attachments/assets/ce5fcde3-cda5-4bea-9e3b-dbfa5ee4e48a" />
+<br>
 
 
 ## 6.6 Step 6: Configure Database Connections
@@ -226,8 +260,9 @@ redis:
  
 ---
 
+<br>
 <img width="720" height="261" alt="image" src="https://github.com/user-attachments/assets/ca2cd1f7-8743-42ff-9dbf-1a81b959394e" />
-
+<br>
 
 
 ## 6.7 Step 7: Database Setup (PostgreSQL + Liquibase)
@@ -269,9 +304,9 @@ The `records` table has columns: `id`, `name`, `status`, `date`.
 
 ---
 
-
+<br>
 <img width="1143" height="917" alt="image" src="https://github.com/user-attachments/assets/13cdf820-2ef5-4abb-a245-55f66b9077a6" />
-
+<br>
 
 ## 6.8 Step 8: Build / Artifact Generation
 
@@ -284,8 +319,9 @@ poetry add gunicorn
 poetry install
 ```
 
+<br>
 <img width="1016" height="347" alt="image" src="https://github.com/user-attachments/assets/9d323749-f3a3-4ced-a72a-8bdeec5bb521" />
-
+<br>
 
 ## 6.9 Step 9: Start Attendance API
 
@@ -293,8 +329,9 @@ poetry install
 nohup poetry run gunicorn --bind 0.0.0.0:8081 app:app &
 ```
 
+<br>
 <img width="1341" height="182" alt="image" src="https://github.com/user-attachments/assets/7fef1266-97d3-46d6-a881-a29b8ee5b4bd" />
-
+<br>
 
 ## 6.10 Step 10: Verify Attendance API
 
@@ -302,8 +339,9 @@ nohup poetry run gunicorn --bind 0.0.0.0:8081 app:app &
 curl http://localhost:8081/api/v1/attendance/health
 ```
 
+<br>
 <img width="1341" height="182" alt="image" src="https://github.com/user-attachments/assets/7cd39f8a-6a8e-40e3-a4ac-b81679fce4bd" />
-
+<br>
 
 ---
 
