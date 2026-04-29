@@ -260,20 +260,13 @@ Revert NGINX configuration if required.
 
 ## **12. FAQs**
 
-**1. Is SSL free using Let’s Encrypt?**
-Yes, completely free.
-
-**2. How long is certificate valid?**
-90 days with auto renewal.
-
-**3. Will HTTP still work?**
-Yes, it redirects to HTTPS.
-
-**4. Does SSL affect performance?**
-Minimal overhead.
-
-**5. Is domain ownership required?**
-Yes.
+| Question | Answer |
+|----------|--------|
+| Is SSL free using Let’s Encrypt? | Yes, it is completely free. |
+| How long is the certificate valid? | It is valid for 90 days and can be auto-renewed. |
+| Will HTTP still work? | Yes, HTTP traffic is automatically redirected to HTTPS. |
+| Does SSL affect performance? | It has minimal performance overhead. |
+| Is domain ownership required? | Yes, domain ownership is required for validation. |
 
 ---
 
