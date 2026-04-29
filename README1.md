@@ -1,4 +1,10 @@
-# Attendance API - Proof of Concept (POC)
+<p align="left">
+  <img width="918" height="778" alt="image" src="https://github.com/user-attachments/assets/0e8ffda3-92d6-464e-a893-0a89ecc2b2be" />
+
+  <br/>
+</p>
+
+<h1 align="left">Attendance API - Proof of Concept (POC)</h1>
 
 ---
 
