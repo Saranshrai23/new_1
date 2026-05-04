@@ -1,4 +1,13 @@
-# VCS Conclusion Documentation
+<p align="left">
+  <img width="225" height="225" alt="image" src="https://github.com/user-attachments/assets/2ce32d97-cfd2-4ff7-9604-4137d62f776c" />
+  <br/>
+</p>
+
+<h1 align="left">VCS Conclusion Documentation</h1>
+
+---
+
+# 
 
 ## Author Information
 
