@@ -137,6 +137,15 @@ The Salary API follows a microservices-based architecture where the service runs
 
 This architecture improves scalability, fault isolation, deployment flexibility, and maintainability.
 
+<details>
+<summary><strong>📌 Salary API Architecture Diagram</strong></summary>
+
+<br>
+
+<img width="1692" height="930" alt="image" src="https://github.com/user-attachments/assets/264fe8b3-5654-4195-be32-a7e7313e78a0" />
+
+</details>
+
 ---
 
 # 5. Dataflow Diagram
@@ -151,7 +160,6 @@ This architecture improves scalability, fault isolation, deployment flexibility,
 4. If cache miss occurs, data is fetched from ScyllaDB
 5. Retrieved data is stored in Redis cache
 6. API returns the response to the client
-7. Metrics are exposed for monitoring and observability
 
 ---
 
