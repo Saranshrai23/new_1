@@ -70,7 +70,7 @@ This SOP provides the steps to install, configure, validate, and troubleshoot th
 
 <details>
 <summary>Installing dependencies - click to expand</summary>
-<img width="1452" height="432" alt="image" src="https://github.com/user-attachments/assets/de7fb37c-1803-481b-8c20-65f28f2c734f" />
+<img width="1392" height="457" alt="image" src="https://github.com/user-attachments/assets/37374966-ed5c-4df0-b7fb-c5416b99d7a7" />
 </details>
 
 ---
