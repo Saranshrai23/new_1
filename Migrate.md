@@ -113,7 +113,8 @@ This method downloads the compiled binary directly from the official GitHub rele
 <details>
 <summary>Downloading migrate binary - click to expand</summary>
 
-<img width="800" src="https://github.com/user-attachments/assets/78949466-fb66-4f73-afcb-bbe412321811" />
+<img width="1847" height="382" alt="image" src="https://github.com/user-attachments/assets/91f083b8-8ebe-4b4c-9e8d-f7e75535895d" />
+
 
 </details>
 
@@ -128,7 +129,8 @@ This method downloads the compiled binary directly from the official GitHub rele
 <details>
 <summary>Moving binary - click to expand</summary>
 
-<img width="400" src="https://github.com/user-attachments/assets/abbbc8b8-a5c2-4173-a9f6-2cd044a75263" />
+<img width="785" height="121" alt="image" src="https://github.com/user-attachments/assets/c59952e4-1962-43e6-91dd-a0c0032d4d39" />
+
 
 </details>
 
@@ -143,7 +145,8 @@ This method downloads the compiled binary directly from the official GitHub rele
 <details>
 <summary>Setting permission - click to expand</summary>
 
-<img width="400" src="https://github.com/user-attachments/assets/49280906-a39d-4939-bbe0-f861de8e0a7f" />
+<img width="825" height="77" alt="image" src="https://github.com/user-attachments/assets/469a26d2-56fa-4378-8cde-9e1914f1d6e4" />
+
 
 </details>
 
@@ -170,7 +173,8 @@ This method installs migrate using Ubuntu package repositories.
 <details>
 <summary>Adding repository - click to expand</summary>
 
-<img width="800" src="https://github.com/user-attachments/assets/d8222905-67ce-48b3-9bd6-d6b8415236fc" />
+<img width="1882" height="196" alt="image" src="https://github.com/user-attachments/assets/d9218ff4-6071-4611-8278-9e853e1ec4e5" />
+
 
 </details>
 
@@ -185,7 +189,8 @@ This method installs migrate using Ubuntu package repositories.
 <details>
 <summary>Installing migrate - click to expand</summary>
 
-<img width="800" src="https://github.com/user-attachments/assets/2fa1f3ec-d3c9-4be6-a384-a1e2c652e01a" />
+<img width="1732" height="726" alt="image" src="https://github.com/user-attachments/assets/50438301-042c-4368-a81a-2b3ede01b8eb" />
+
 
 </details>
 
@@ -219,7 +224,8 @@ After installation, verify whether the migrate CLI is properly installed and acc
 <details>
 <summary>Verification - click to expand</summary>
 
-<img width="400" src="https://github.com/user-attachments/assets/65ea63af-6460-49c8-b63c-8b9b179817a8" />
+<img width="610" height="117" alt="image" src="https://github.com/user-attachments/assets/d2459812-209c-410b-8584-2b7c1b83d4e7" />
+
 
 </details>
 
@@ -236,7 +242,8 @@ The following command creates migration files and validates whether the migrate 
 <details>
 <summary>Validation - click to expand</summary>
 
-<img width="500" src="https://github.com/user-attachments/assets/86b498fd-2a63-4791-a85f-065a73bb4cf8" />
+<img width="941" height="101" alt="image" src="https://github.com/user-attachments/assets/2d41604d-7f2f-4b11-b87d-1283cd55f9d4" />
+
 
 </details>
 
